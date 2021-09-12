@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="stylesheet.css">
+    <title>ShnooTalk</title>
+</head>
+
+<body>
+    <div class="root-panel">
+        <div class="panel-toolbar">
+            <div class="panel-toolbar" id="tab-header">
+                <button class="toolbar-tab active" onclick="openTab(event, 'main.shtk')">                    
+                    <span>main.shtk</span>
+                    <img src="icons/x.svg" class="button-content-pad-left button-content-float-right" width="15px" alt="">
+                </button>
+                <button class="toolbar-tab" onclick="openTab(event, 'Paris')">
+                    <span>Paris</span>
+                    <img src="icons/x.svg" class="button-content-pad-left button-content-float-right" width="15px" alt="">
+                </button>
+                <button class="toolbar-tab" onclick="openTab(event, 'Tokyo')">
+                    <span>Tokyo</span>
+                    <img src="icons/x.svg" class="button-content-pad-left button-content-float-right" width="15px" alt="">
+                </button>
+            </div>
+
+            <button class="toolbar-button border-bottom">
+                <img src="icons/plus.svg" width="15px" alt="">
+            </button>
+
+            <div class="toolbar-space border-bottom"></div>
+
+            <button class="toolbar-label border-bottom">
+                <img src="icons/logo.svg" width="50px" style="padding: 0px;" alt="">
+                <span class="button-content-pad-left">ShnooTalk Playground</span>
+            </button>
+
+            <button class="toolbar-button toolbar-button-green">
+                <img src="icons/play.svg" width="15px" alt="">
+                <span class="button-content-pad-left">Run</span>
+            </button>
+        </div>
+
+        <div class="panel panel-flex-row">
+            <div class="panel panel-child-grow">
+                <div id="main.shtk" class="tab-content" , style="display: block;"></div>
+
+                <div id="Paris" class="tab-content"></div>
+
+                <div id="Tokyo" class="tab-content"></div>
+
+
+
+            </div>
+
+            <div class="panel" style="width: 40%;">
+                <div class="panel-title border-left border-bottom"> STDOUT </div>
+                <div class="panel panel-child-grow border-left">
+
+                </div>
+                <div class="panel-title border"> STDIN </div>
+                <div class="panel border-left" style="height: 40%;">
+
+                </div>
+            </div>
+
+        </div>
+
+        <script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="playground.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
+
+</html>

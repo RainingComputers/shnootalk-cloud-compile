@@ -1,0 +1,133 @@
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.panel-toolbar {
+    overflow: hidden;
+    background-color: #e8e8e8;
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+}
+
+.panel-toolbar>.toolbar-tab {
+    background-color: rgba(0, 0, 0, 0.071);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 12px;
+    transition: 0.3s;
+    font-size: 14px;
+    min-width: 100px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.toolbar-tab:hover, .toolbar-button:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.toolbar-tab.active {
+    background-color: #ffffff;
+}
+
+.toolbar-button, .toolbar-label {
+    background-color: #e8e8e8;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 12px 16px;
+    transition: 0.3s;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.toolbar-button-green {
+    background-color: #04AA6D !important;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.toolbar-button-green:hover {
+    background-color: #059862 !important;
+}
+
+.toolbar-space {
+    flex-grow: 1;
+    margin-top: auto;
+}
+
+.tab-content {
+    display: none;
+    height: 100%;
+}
+
+.root-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+}
+
+.panel-flex-row {
+    flex-direction: row;
+}
+
+.panel-child-grow {
+    flex-grow: 1;
+}
+
+.panel-title {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-align: right;
+    padding-right: 1em;
+    background: #e8e8e8;
+}
+
+.border {
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.071);
+    border-style: solid;
+}
+
+.border-left {
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.071);
+    border-left-style: solid;
+}
+
+.border-bottom {
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.071);
+    border-bottom-style: solid;
+}
+
+.button-content-pad-left {
+    padding-left: 0.5em;
+}
+
+.button-content-float-right {
+    margin-left: auto;
+}
+
+.editor {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
