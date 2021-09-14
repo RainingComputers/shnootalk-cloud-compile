@@ -1,0 +1,194 @@
+/* 
+    Box - Quick dirty pico framework for vanilla JS and CSS framework for web 
+          applications
+
+    Copyright 2021 Vishnu Shankar B
+
+    Permission is hereby granted, free of charge, to any person obtaining a 
+    copy of this software and associated documentation files (the "Software"),
+    to deal in the Software without restriction, including without limitation 
+    the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    and/or sell copies of the Software, and to permit persons to whom the 
+    Software is furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included 
+    in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
+    OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE 
+    USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+img {
+    padding: 0px;
+}
+
+.box-root {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 0 0;
+}
+
+.box-display-none {
+    display: none;
+}
+
+.box-button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.pad-vert {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.pad-hor {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.pad-left {
+    padding-left: 12px;
+}
+
+.box-arrange-hor {
+    flex-direction: row;
+}
+
+.box-arrange-vert {
+    flex-direction: column;
+}
+
+.box-arrange-gap {
+    gap: 2px;
+}
+
+.box-child-grow {
+    flex-grow: 1;
+}
+
+.box-overflow-hidden {
+    overflow: hidden;
+}
+
+.box-float-right {
+    margin-left: auto;
+}
+
+.box-width-full {
+    width: 100%;
+}
+
+.box-min-width-120 {
+    min-width: 120px;
+}
+
+.box-height-full {
+    height: 100%
+}
+
+.background-1e {
+    background: #1e1e1e;
+}
+
+.background-25 {
+    background: #252526;
+}
+
+.background-2d {
+    background: #2d2d2d;
+}
+
+.background-33 {
+    background: #333333;
+}
+
+.background-3c {
+    background: #3c3c3c;
+}
+
+.hover-background-1e:hover {
+    background: #1e1e1e;
+}
+
+.active-background-1e.active {
+    background: #1e1e1e;
+}
+
+.hover-background-25:hover {
+    background: #252526;
+}
+
+.active-background-25.active {
+    background: #252526;
+}
+
+.hover-background-2d:hover {
+    background: #2d2d2d;
+}
+
+.active-background-2d.active {
+    background: #2d2d2d;
+}
+
+.hover-background-33:hover {
+    background: #333333;
+}
+
+.active-background-33.active {
+    background: #333333;
+}
+
+.hover-background-3c:hover {
+    background: #3c3c3c;
+}
+
+.active-background-3c.active {
+    background: #3c3c3c;
+}
+
+.hover-background-1e:hover {
+    background: #1e1e1e;
+}
+
+.active-background-1e.active {
+    background: #1e1e1e;
+}
+
+.foreground-f80 {
+    color: #FFffff80;
+}
+
+.foreground-cc {
+    color: #cccccc;
+}
+
+.editor {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
