@@ -3,7 +3,8 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="box.css">
+    <link rel="stylesheet" href="css/box.css">
+    <link rel="stylesheet" href="css/loader.css">
     <title>ShnooTalk</title>
 </head>
 
@@ -21,7 +22,8 @@
     <div class="box box-width-full box-child-grow">
 
         <div class="box box-arrange-hor box-width-full background-25 box-items-center">
-            <div class="box box-arrange-hor box-arrange-gap box-height-full box-overflow-scroll" style="height: 46px;" id="tab-header">
+            <div class="box box-arrange-hor box-arrange-gap box-height-full box-overflow-scroll" style="height: 46px;"
+                id="tab-header">
                 <button id="tab-main.shtk"
                     class="box box-arrange-hor box-items-center box-button box-button-tab box-height-full pad-hor pad-vert box-min-width-120 active-background-1e hover-background-33 background-2d foreground-f80 active-foreground-cc tab-links active"
                     onclick="openTab('main.shtk')">
@@ -62,13 +64,23 @@
                     <img src="icons/terminal.svg" class="pad-left" width="16px" alt="">
                     <span class="pad-hor pad-vert box-width-full foreground-cc font-small ">OUTPUT</span>
                 </div>
-                <div class="box box-child-grow"></div>
+                <div id="stdout-panel" class="box box-child-grow">
+                    <span id="stdout-panel-output" class="pad-hor foreground-cc"></span>
+                </div>
+                <div id="status-panel" class="box box-child-grow box-items-center box-display-none">
+                    <div class="pad-vert">
+                        <div class="loader loader-background-2d loader-foreground-cc"
+                            style="width: 50px; height: 50px;"></div>
+                    </div>
+                    <span class="pad-vert foreground-cc font-small">Dispatched</span>
+                </div>
                 <div class="box box-arrange-hor border-top-37">
                     <img src="icons/terminal.svg" class="pad-left" width="16px" alt="">
                     <span class="pad-hor pad-vert box-width-full foreground-cc font-small ">INPUT</span>
                 </div>
-
-                <div class="box box-height-quarter"></div>
+                <div class="box box-height-quarter pad-hor pad-bottom">
+                    <textarea id="input-textarea" class="box-width-full box-height-full background-2d foreground-cc" placeholder="Enter input here"></textarea>
+                </div>
             </div>
         </div>
 

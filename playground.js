@@ -102,7 +102,6 @@ function createTabOnEnter(evt, element) {
 
     // Timeout of 1 ms so the editor does not capture the Enter key event
     setTimeout(() => focusEditor(tabName), 1)
-    focusEditor(tabName)
 }
 
 function askNameAndCreateNewTab() {
