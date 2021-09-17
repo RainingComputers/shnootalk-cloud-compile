@@ -299,22 +299,21 @@ textarea:focus {
 /* Foregrounds */
 
 .active-foreground-f80.active,
+.placeholder-foreground-f80::placeholder,
 .foreground-f80 {
   color: #ffffff80;
 }
 
 .active-foreground-cc.active,
+.placeholder-foreground-cc::placeholder,
 .foreground-cc {
   color: #cccccc;
 }
 
 .active-foreground-white.active,
+.placeholder-foreground-white::placeholder,
 .foreground-white {
   color: #ffffff;
-}
-
-::placeholder {
-  color: #ffffff80;
 }
 
 /* Ace editor */
