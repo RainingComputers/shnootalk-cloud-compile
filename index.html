@@ -10,9 +10,10 @@
 <body class="box-root">
     <div id="ask-tab-name-modal" class="box box-modal-background box-arrange-hor">
         <div class="box box-modal-window background-25 pad-hor box-width-quarter">
-            <span class="foreground-f80 font-small pad-vert-small">Enter new name</span>
+            <span class="foreground-cc font-small pad-vert-small">Enter new name</span>
             <span class="pad-bottom-small">
-                <input id="ask-tab-name-textbox" type="text" onkeydown="createTabOnEnter(event, this)" class="background-1e box-width-full foreground-f80">
+                <input id="ask-tab-name-textbox" type="text" onkeydown="createTabOnEnter(event, this)"
+                    class="background-1e box-width-full foreground-cc">
             </span>
         </div>
     </div>
@@ -22,20 +23,21 @@
         <div class="box box-arrange-hor box-width-full background-25 box-items-center">
             <div class="box box-arrange-hor box-arrange-gap box-height-full" id="tab-header">
                 <button id="tab-main.shtk"
-                    class="box box-arrange-hor box-items-center box-button box-button-tab box-height-full pad-hor pad-vert box-min-width-120 active-background-1e hover-background-33 background-2d foreground-f80 tab-links active"
+                    class="box box-arrange-hor box-items-center box-button box-button-tab box-height-full pad-hor pad-vert box-min-width-120 active-background-1e hover-background-33 background-2d foreground-f80 active-foreground-cc tab-links active"
                     onclick="openTab('main.shtk')">
                     <img src="icons/code.svg" class="box-float-right" width="15px" alt="">
                     <span class="pad-left-small">main.shtk</span>
                 </button>
             </div>
 
-            <button class="box-button background-25 box-items-center box-height-full" onclick="askNameAndCreateNewTab()">
+            <button class="box-button background-25 box-items-center box-height-full"
+                onclick="askNameAndCreateNewTab()">
                 <img src="icons/plus.svg" class="box-rounded hover-background-darken pad-vert-small pad-hor-small"
                     width="15px" alt="">
             </button>
 
             <div
-                class="box box-arrange-hor box-items-center pad-hor pad-vert background-25 box-float-right foreground-f80 ">
+                class="box box-arrange-hor box-items-center pad-hor pad-vert background-25 box-float-right foreground-cc ">
                 <img src="icons/logo.svg" class="" width="50px" alt="">
                 <span class="pad-left">ShnooTalk Playground</span>
             </div>
@@ -58,12 +60,12 @@
 
                 <div class="box box-arrange-hor">
                     <img src="icons/terminal.svg" class="pad-left" width="16px" alt="">
-                    <span class="pad-hor pad-vert box-width-full foreground-f80 font-small ">OUTPUT</span>
+                    <span class="pad-hor pad-vert box-width-full foreground-cc font-small ">OUTPUT</span>
                 </div>
                 <div class="box box-child-grow"></div>
                 <div class="box box-arrange-hor border-top-37">
                     <img src="icons/terminal.svg" class="pad-left" width="16px" alt="">
-                    <span class="pad-hor pad-vert box-width-full foreground-f80 font-small ">INPUT</span>
+                    <span class="pad-hor pad-vert box-width-full foreground-cc font-small ">INPUT</span>
                 </div>
 
                 <div class="box box-height-quarter"></div>
@@ -74,7 +76,7 @@
 
     <template id="new-tab-button-template">
         <button id="tab-button"
-            class="box box-arrange-hor box-items-center box-button box-button-tab box-height-full pad-hor pad-vert box-min-width-120 active-background-1e hover-background-33 background-2d foreground-f80 tab-links active">
+            class="box box-arrange-hor box-items-center box-button box-button-tab box-height-full pad-hor pad-vert box-min-width-120 active-background-1e hover-background-33 background-2d foreground-f80 active-foreground-cc tab-links active">
             <img src="icons/code.svg" class="box-float-right" width="15px" alt="">
             <span id="tab-name" class="pad-left-small">main.shtk</span>
             <span class="box-float-right pad-left"></span>

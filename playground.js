@@ -1,8 +1,32 @@
 const editors = {}
 let tabHistory = []
 
+function byId(id) {
+    return document.getElementById(id)
+}
+
+function getTabContentDivId(tabName) {
+    return `tab-content-${tabName}`
+}
+
+function getTabButtonId(tabName) {
+    return `tab-${tabName}`
+}
+
+function pushHistory(tabName) {
+    tabHistory.push(tabName)
+}
+
+function popHistory(tabName) {
+    return tabHistory.pop(tabName)
+}
+
+function removeHistory(tabName) {
+    tabHistory = tabHistory.filter(elem => elem != tabName)
+}
+
 function createEditor(tabName) {
-    let editor = ace.edit(tabName)
+    let editor = ace.edit(getTabContentDivId(tabName))
     editor.setTheme("ace/theme/vscode")
     editor.session.setMode("ace/mode/shnootalk")
     editor.setFontSize(18)
@@ -10,6 +34,15 @@ function createEditor(tabName) {
     editor.setHighlightActiveLine(false)
 
     editors[tabName] = editor
+}
+
+function destroyEditor(tabName) {
+    editors[tabName].destroy()
+    delete editors[tabName]
+}
+
+function tabExists(tabName) {
+    return tabName in editors
 }
 
 function makeAllTabsInactive() {
@@ -23,23 +56,25 @@ function makeAllTabsInactive() {
 }
 
 function openTab(tabName) {
-    tabHistory.push(tabName)
-
     makeAllTabsInactive()
 
-    document.getElementById(`tab-content-${tabName}`).style.display = "block"
-    document.getElementById(`tab-${tabName}`).className += " active"
+    byId(getTabContentDivId(tabName)).style.display = "block"
+    byId(getTabButtonId(tabName)).className += " active"
+
+    pushHistory(tabName)
 }
 
 function closeTab(tabName) {
     makeAllTabsInactive()
 
-    document.getElementById(`tab-content-${tabName}`).remove()
-    document.getElementById(`tab-${tabName}`).remove()
+    byId(getTabContentDivId(tabName)).remove()
+    byId(getTabButtonId(tabName)).remove()
 
-    tabHistory = tabHistory.filter(elem => elem != tabName)
+    destroyEditor(tabName)
 
-    openTab(tabHistory.pop())
+    removeHistory(tabName);
+
+    openTab(popHistory(tabName))
 }
 
 function closeTabEvent(evt, tabName) {
@@ -51,45 +86,42 @@ function closeTabEvent(evt, tabName) {
 function createTabOnEnter(evt, element) {
     if(evt.key !== 'Enter') return;
     
-    document.getElementById("ask-tab-name-modal").style.display = "none"
+    byId("ask-tab-name-modal").style.display = "none"
     newTab(element.value)
 }
 
 function askNameAndCreateNewTab() {
-    document.getElementById("ask-tab-name-modal").style.display = "flex"
+    byId("ask-tab-name-modal").style.display = "flex"
     
-    const textbox = document.getElementById("ask-tab-name-textbox")
-
+    const textbox = byId("ask-tab-name-textbox")
     textbox.value = ""
     textbox.focus()
 }
 
 function newTab(tabName) {
-    if (`tab-content-${tabName}` in editors) {
+    if (tabExists(tabName)) {
         openTab(tabName)
         return
     }
 
     makeAllTabsInactive() 
     
-    const tabTemplate = document.getElementById("new-tab-button-template").content.cloneNode(true)
-    
+    const tabTemplate = byId("new-tab-button-template").content.cloneNode(true)
     tabTemplate.getElementById("tab-name").innerHTML = tabName
     tabTemplate.getElementById("tab-button").setAttribute("onclick", `openTab('${tabName}')`)
-    tabTemplate.getElementById("tab-button").setAttribute("id", `tab-${tabName}`)
+    tabTemplate.getElementById("tab-button").setAttribute("id", getTabButtonId(tabName))
     tabTemplate.getElementById("tab-close-button").setAttribute("onclick", `closeTabEvent(event, '${tabName}')`)
 
-    document.getElementById("tab-header").appendChild(tabTemplate)
+    byId("tab-header").appendChild(tabTemplate)
 
-    const contentTemplate = document.getElementById("new-editor-template").content.cloneNode(true)
-    contentTemplate.getElementById("editor-div").setAttribute("id", `tab-content-${tabName}`)
+    const contentTemplate = byId("new-editor-template").content.cloneNode(true)
+    contentTemplate.getElementById("editor-div").setAttribute("id", getTabContentDivId(tabName))
 
-    document.getElementById("content-div").appendChild(contentTemplate)
+    byId("content-div").appendChild(contentTemplate)
 
-    createEditor(`tab-content-${tabName}`)
-
+    createEditor(tabName)
     tabHistory.push(tabName)
 }
 
-tabHistory.push("main.shtk")
-createEditor("tab-content-main.shtk")
+pushHistory("main.shtk")
+createEditor("main.shtk")

@@ -1,6 +1,5 @@
 /* 
-    Box - Quick dirty pico framework for vanilla JS and CSS framework for web 
-          applications
+    Box - Quick dirty pico CSS framework
 
     Copyright 2021 Vishnu Shankar B
 
@@ -23,6 +22,8 @@
     USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/* Default overrides */
+
 body {
   font-family: monospace, monospace;
 }
@@ -35,6 +36,14 @@ img {
 span {
   font: inherit;
 }
+
+input[type="text"] {
+  border: none;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/* Containers */
 
 .box-root {
   position: absolute;
@@ -53,14 +62,6 @@ span {
   flex-direction: column;
   margin: 0 0 0 0;
   font-size: 15px;
-}
-
-.font-small {
-  font-size: small;
-}
-
-.box-display-none {
-  display: none;
 }
 
 .box-button {
@@ -87,37 +88,7 @@ span {
   margin: auto;
 }
 
-.pad-vert {
-  padding-top: 12px;
-  padding-bottom: 12px;
-}
-
-.pad-hor {
-  padding-left: 12px;
-  padding-right: 12px;
-}
-
-.pad-left {
-  padding-left: 12px;
-}
-
-.pad-left-small {
-  padding-left: 7px;
-}
-
-.pad-bottom-small {
-  padding-bottom: 7px;
-}
-
-.pad-vert-small {
-  padding-top: 7px;
-  padding-bottom: 7px;
-}
-
-.pad-hor-small {
-  padding-left: 7px;
-  padding-right: 7px;
-}
+/* Box container modifiers */
 
 .box-arrange-hor {
   flex-direction: row;
@@ -135,10 +106,6 @@ span {
   gap: 2px;
 }
 
-.box-child-grow {
-  flex-grow: 1;
-}
-
 .box-overflow-hidden {
   overflow: hidden;
 }
@@ -151,9 +118,25 @@ span {
   border-radius: 2px;
 }
 
+.box-display-none {
+  display: none;
+}
+
+.font-small {
+  font-size: small;
+}
+
+/* Box child modifiers */
+
+.box-child-grow {
+  flex-grow: 1;
+}
+
 .box-float-right {
   margin-left: auto;
 }
+
+/* Box child width modifiers */
 
 .box-width-full {
   width: 100%;
@@ -175,9 +158,7 @@ span {
   min-width: 120px;
 }
 
-.border-top {
-  border-top: solid 1px #373737;
-}
+/* Box child height modifiers */
 
 .box-height-full {
   height: 100%;
@@ -195,23 +176,104 @@ span {
   height: 35%;
 }
 
-.background-1e {
+/* Padding */
+
+.pad-vert {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.pad-hor {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.pad-left {
+  padding-left: 12px;
+}
+
+.pad-right {
+  padding-right: 12px;
+}
+
+.pad-top {
+  padding-top: 12px;
+}
+
+.pad-bottom {
+  padding-bottom: 12px;
+}
+
+/* Small padding */
+
+.pad-vert-small {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.pad-hor-small {
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.pad-left-small {
+  padding-left: 7px;
+}
+
+.pad-right-small {
+  padding-right: 7px;
+}
+
+.pad-top-small {
+  padding-top: 7px;
+}
+
+.pad-bottom-small {
+  padding-bottom: 7px;
+}
+
+/* Borders */
+
+.border-37 {
+  border: solid 1px #373737;
+}
+
+.border-top-37 {
+  border-top: solid 1px #373737;
+}
+
+.border-left-37 {
+  border-left: solid 1px #373737;
+}
+
+/* Backgrounds */
+.background-1e,
+.hover-background-1e:hover:not(.active),
+.active-background-1e.active {
   background: #1e1e1e;
 }
 
-.background-25 {
+.background-25,
+.hover-background-25:hover:not(.active),
+.active-background-25.active {
   background: #252526;
 }
 
-.background-2d {
+.background-2d,
+.hover-background-2d:hover:not(.active),
+.active-background-2d.active {
   background: #2d2d2d;
 }
 
-.background-33 {
+.background-33,
+.hover-background-33:hover:not(.active),
+.active-background-33.active {
   background: #333333;
 }
 
-.background-3c {
+.background-3c,
+.hover-background-3c:hover:not(.active),
+.active-background-3c.active {
   background: #3c3c3c;
 }
 
@@ -223,87 +285,28 @@ span {
   background: #04aa6d;
 }
 
-.hover-background-1e:hover {
-  background: #1e1e1e;
-}
-
-.active-background-1e.active {
-  background: #1e1e1e;
-}
-
-.hover-background-25:hover {
-  background: #252526;
-}
-
-.active-background-25.active {
-  background: #252526;
-}
-
-.hover-background-2d:hover {
-  background: #2d2d2d;
-}
-
-.active-background-2d.active {
-  background: #2d2d2d;
-}
-
-.hover-background-33:hover {
-  background: #333333;
-}
-
-.active-background-33.active {
-  background: #333333;
-}
-
-.hover-background-3c:hover {
-  background: #3c3c3c;
-}
-
-.active-background-3c.active {
-  background: #3c3c3c;
-}
-
-.hover-background-1e:hover {
-  background: #1e1e1e;
-}
-
-.active-background-1e.active {
-  background: #1e1e1e;
-}
-
 .hover-background-darken:hover {
   background: rgba(0, 0, 0, 0.2);
 }
 
+/* Foregrounds */
+
+.active-foreground-f80.active,
 .foreground-f80 {
   color: #ffffff80;
 }
 
+.active-foreground-cc.active,
 .foreground-cc {
   color: #cccccc;
 }
 
+.active-foreground-white.active,
 .foreground-white {
   color: #ffffff;
 }
 
-.border-top-37 {
-  border-top: solid 1px #373737;
-}
-
-.border-37 {
-  border: solid 1px #373737;
-}
-
-.border-left-37 {
-  border-left: solid 1px #373737;
-}
-
-input[type="text"] {
-  border: none;
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
+/* Ace editor */
 
 .editor {
   position: absolute;
