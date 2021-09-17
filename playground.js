@@ -25,6 +25,10 @@ function removeHistory(tabName) {
     tabHistory = tabHistory.filter(elem => elem != tabName)
 }
 
+function getCurrentOpenTab(tabName) {
+    return tabHistory[tabHistory.length - 1]
+}
+
 function createEditor(tabName) {
     let editor = ace.edit(getTabContentDivId(tabName))
     editor.setTheme("ace/theme/vscode")
@@ -34,6 +38,10 @@ function createEditor(tabName) {
     editor.setHighlightActiveLine(false)
 
     editors[tabName] = editor
+}
+
+function focusEditor(tabName) {
+    editors[tabName].focus()
 }
 
 function destroyEditor(tabName) {
@@ -62,6 +70,7 @@ function openTab(tabName) {
     byId(getTabButtonId(tabName)).className += " active"
 
     pushHistory(tabName)
+    focusEditor(tabName)
 }
 
 function closeTab(tabName) {
@@ -84,10 +93,13 @@ function closeTabEvent(evt, tabName) {
 }
 
 function createTabOnEnter(evt, element) {
-    if(evt.key !== 'Enter') return;
+    if(evt.key !== 'Enter' || element.value.length === 0) return;
     
     byId("ask-tab-name-modal").style.display = "none"
-    newTab(element.value)
+
+    const tabName = element.value
+    newTab(tabName)
+    focusEditor(tabName)
 }
 
 function askNameAndCreateNewTab() {
@@ -123,5 +135,15 @@ function newTab(tabName) {
     tabHistory.push(tabName)
 }
 
+document.onkeydown = function(evt) {
+    if (evt.key === 'Escape') {
+        byId("ask-tab-name-modal").style.display = "none"
+        focusEditor(getCurrentOpenTab())
+    }
+    
+    if ((evt.key === 't'|| evt.key == 'T') && evt.altKey) askNameAndCreateNewTab()    
+}
+
 pushHistory("main.shtk")
 createEditor("main.shtk")
+focusEditor("main.shtk")
