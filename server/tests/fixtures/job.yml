@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map-613c7fcf1cbaaff506b1084c
+data:
+  main.shtk: |
+    use "foobar.shtk" as foobar
+
+    fn main() -> int
+    {
+        println("Hello world")
+        foobar::foobar()
+        return 0
+    }
+  foobar.shtk: |
+    fn foobar() 
+    {
+        println("foobar!")
+    }
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: compile-job-613c7fcf1cbaaff506b1084c
+spec:
+  template:
+    spec:
+      containers:
+      - name: compile-exec-job
+        image: docker.io/shnoo28/shnootalk-cloud-compile-job:0.0.1
+        command: ["python3",  "shnootalk_cc_job", "/configmap/", "/progdir/", "613c7fcf1cbaaff506b1084c"]
+        env:
+        - name: MONGO_URL
+          valueFrom:
+            secretKeyRef:
+              name: mongo-url-secret
+              key: mongoURL
+        volumeMounts:
+          - name: program-file
+            mountPath: /configmap/
+          - name: scratch-volume
+            mountPath: /progdir/
+      volumes:
+        - name: program-file
+          configMap:
+            name: config-map-613c7fcf1cbaaff506b1084c
+        - name: scratch-volume
+          emptyDir: {}
+      restartPolicy: Never
+  backoffLimit: 0

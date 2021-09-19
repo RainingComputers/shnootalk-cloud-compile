@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: <filled-by-server>
+data: <filled-by-server>
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: <filled-by-server>
+spec:
+  template:
+    spec:
+      containers:
+      - name: compile-exec-job
+        image: docker.io/shnoo28/shnootalk-cloud-compile-job:0.0.1
+        command: ["python3",  "shnootalk_cc_job", "/configmap/", "/progdir/", "<filled-by-server>"]
+        env:
+        - name: MONGO_URL
+          valueFrom:
+            secretKeyRef:
+              name: mongo-url-secret
+              key: mongoURL
+        volumeMounts:
+          - name: program-file
+            mountPath: /configmap/
+          - name: scratch-volume
+            mountPath: /progdir/
+      volumes:
+        - name: program-file
+          configMap:
+            name: <filled-by-server>
+        - name: scratch-volume
+          emptyDir: {}
+      restartPolicy: Never
+  backoffLimit: 0
