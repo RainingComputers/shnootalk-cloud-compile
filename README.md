@@ -1,4 +1,4 @@
-# Shnootalk Cloud Compile
+# ShnooTalk Cloud Compile
 
 Backend and infrastructure to compile and execute ShnooTalk programs on the cloud.
 Primary use case is for users to try the language in the browser.
