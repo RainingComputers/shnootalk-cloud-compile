@@ -17,7 +17,7 @@ def test_dispatch_invalid_json(client: FlaskClient) -> None:
 
     assert resp.status_code == 400
 
-    assert resp.data == b'Cannot parse request body as JSON'
+    assert resp.json == {'error': 'Cannot parse request body as JSON'}
 
 
 def test_dispatch(client: FlaskClient, collection: Collection,

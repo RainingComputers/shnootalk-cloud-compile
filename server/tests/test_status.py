@@ -8,7 +8,7 @@ def test_status_invalid_id(client: FlaskClient) -> None:
 
     assert resp.status_code == 400
 
-    assert resp.data == b'Invalid id'
+    assert resp.json == {'error': 'Invalid id'}
 
 
 def test_status_does_not_exist(client: FlaskClient) -> None:
@@ -16,7 +16,7 @@ def test_status_does_not_exist(client: FlaskClient) -> None:
 
     assert resp.status_code == 404
 
-    assert resp.data == b'Program with this id was not found'
+    assert resp.json == {'error': 'Program with this id was not found'}
 
 
 def test_status_success(client: FlaskClient, collection: Collection) -> None:

@@ -28,11 +28,10 @@ test:
 	pytest tests
 
 lint:
-	pylint $(APP_NAME)  --rcfile ./.pylintrc
+	pylint $(APP_NAME) tests --rcfile ./.pylintrc
 
 typechk:
-	mypy --package $(APP_NAME) --namespace-packages --install-types
-
+	mypy --package $(APP_NAME) --package tests --namespace-packages --install-types
 push:
 	docker build --no-cache . -t shnoo28/shnootalk-cloud-compile-server:0.0.1
 	docker push shnoo28/shnootalk-cloud-compile-server:0.0.1

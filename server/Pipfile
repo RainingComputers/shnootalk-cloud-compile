@@ -4,16 +4,16 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
-pyyaml = "*"
+Flask = "*"
+PyYAML = "*"
 kubernetes = "*"
+Flask-Cors = "*"
 
 [dev-packages]
 pylint = "*"
 autopep8 = "*"
 mypy = "*"
 pytest = "*"
-shnootalk_cc_server = {editable = true,path = "."}
 
 [requires]
 python_version = "3.8"
@@ -21,3 +21,7 @@ python_version = "3.8"
 [packages.pymongo]
 extras = [ "srv",]
 version = "*"
+
+[dev-packages.shnootalk_cc_server]
+editable = true
+path = "."

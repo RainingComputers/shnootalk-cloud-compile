@@ -50,7 +50,7 @@ def dispatch() -> Response:
     programs = request.get_json()
 
     if programs is None:
-        return make_response("Cannot parse request body as JSON", 400)
+        return make_response(jsonify({'error': 'Cannot parse request body as JSON'}), 400)
 
     doc_id = mongo_collection.insert_one({'status': 'SCHEDULED'}).inserted_id
 
@@ -68,12 +68,12 @@ def status(program_id: str) -> Response:
     try:
         object_id = ObjectId(program_id)
     except InvalidId:
-        return make_response("Invalid id", 400)
+        return make_response(jsonify({'error': 'Invalid id'}), 400)
 
     doc = mongo_collection.find_one({'_id': object_id})
 
     if doc is None:
-        return make_response("Program with this id was not found", 404)
+        return make_response(jsonify({'error': 'Program with this id was not found'}), 404)
 
     doc['_id'] = str(doc['_id'])
 
