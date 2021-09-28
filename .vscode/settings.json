@@ -1,6 +1,5 @@
 {
     "cSpell.words": [
-        "Shnoo",
         "backoff",
         "bson",
         "chdir",
@@ -10,8 +9,10 @@
         "println",
         "progdir",
         "pymongo",
+        "rundev",
         "setenv",
         "shnoo",
+        "Shnoo",
         "SHNOOTALK",
         "shtk",
         "shtkc",
