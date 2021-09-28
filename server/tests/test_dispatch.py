@@ -13,7 +13,7 @@ from shnootalk_cc_server.api_v1 import fill_template
 
 
 def test_dispatch_invalid_json(client: FlaskClient) -> None:
-    resp = client.post('/api/v1/dispatch', data='This is not valid json')
+    resp = client.post('/shnootalk/compile/api/v1/dispatch', data='This is not valid json')
 
     assert resp.status_code == 400
 
@@ -26,7 +26,7 @@ def test_dispatch(client: FlaskClient, collection: Collection,
     mock = Mock()
     monkeypatch.setattr(shnootalk_cc_server.api_v1, 'kube_apply', mock)
 
-    resp = client.post('/api/v1/dispatch', json=test_programs)
+    resp = client.post('/shnootalk/compile/api/v1/dispatch', json=test_programs)
 
     # Check if response is valid JSON
     json_resp = resp.json
@@ -37,6 +37,7 @@ def test_dispatch(client: FlaskClient, collection: Collection,
     # Assert if kube_apply() function was called properly
     mock.assert_called_once()
     assert mock.call_args[0][0] == fill_template(program_id, test_programs)
+    assert mock.call_args[0][1] == 'compile'
 
     # Make sure only one document has been inserted, and assert that document
     docs = list(collection.find({}))

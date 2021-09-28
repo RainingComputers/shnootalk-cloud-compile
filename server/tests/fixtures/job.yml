@@ -33,8 +33,8 @@ spec:
         - name: MONGO_URL
           valueFrom:
             secretKeyRef:
-              name: mongo-url-secret
-              key: mongoURL
+              name: shnootalk-cloud-compile-mongodb-url
+              key: connectionString
         volumeMounts:
           - name: program-file
             mountPath: /configmap/

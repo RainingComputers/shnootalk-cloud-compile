@@ -13,6 +13,8 @@ from flask.wrappers import Response
 
 from shnootalk_cc_server.kube_apply import kube_apply
 from shnootalk_cc_server.config import mongo_collection
+from shnootalk_cc_server.config import MONGO_URL_SECRET_NAME, MONGO_URL_SECRET_KEY
+from shnootalk_cc_server.config import COMPILE_JOB_NAMESPACE
 
 server = Blueprint('server', __name__)
 
@@ -36,10 +38,16 @@ def fill_template(program_id: str, programs: Dict[str, str]) -> List[Dict[str, A
 
     job_template[JOB]['metadata']['name'] = job_name
 
-    job_template[JOB]['spec']['template']['spec']['containers'][0]['command'][-1] = program_id
+    job_template_spec = job_template[JOB]['spec']['template']['spec']
 
-    job_template[JOB]['spec']['template']['spec']['volumes'][0]['configMap']['name'] =\
-        config_map_name
+    job_template_spec['containers'][0]['env'][0]['valueFrom']['secretKeyRef'] = {
+        'name': MONGO_URL_SECRET_NAME,
+        'key': MONGO_URL_SECRET_KEY
+    }
+
+    job_template_spec['containers'][0]['command'][-1] = program_id
+
+    job_template_spec['volumes'][0]['configMap']['name'] = config_map_name
 
     return job_template
 
@@ -57,7 +65,7 @@ def dispatch() -> Response:
     # Create a kubernetes job with files mounted as configmap, and deploy job
     job_definition = fill_template(str(doc_id), programs)
 
-    kube_apply(job_definition)
+    kube_apply(job_definition, COMPILE_JOB_NAMESPACE)
 
     # return id so client can poll the status of execution
     return jsonify({'_id': str(doc_id)})

@@ -18,6 +18,7 @@
         "println",
         "progdir",
         "pymongo",
+        "reqs",
         "setenv",
         "shnoo",
         "SHNOOTALK",

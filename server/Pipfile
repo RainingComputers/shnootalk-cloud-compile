@@ -8,6 +8,7 @@ Flask = "*"
 PyYAML = "*"
 kubernetes = "*"
 Flask-Cors = "*"
+gunicorn = "*"
 
 [dev-packages]
 pylint = "*"

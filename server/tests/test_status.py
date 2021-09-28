@@ -4,7 +4,7 @@ from pymongo.collection import Collection
 
 
 def test_status_invalid_id(client: FlaskClient) -> None:
-    resp = client.get('/api/v1/status/invalidId')
+    resp = client.get('/shnootalk/compile/api/v1/status/invalidId')
 
     assert resp.status_code == 400
 
@@ -12,7 +12,7 @@ def test_status_invalid_id(client: FlaskClient) -> None:
 
 
 def test_status_does_not_exist(client: FlaskClient) -> None:
-    resp = client.get('/api/v1/status/613c7fcf1cbaaff506b1084c')
+    resp = client.get('shnootalk/compile/api/v1/status/613c7fcf1cbaaff506b1084c')
 
     assert resp.status_code == 404
 
@@ -28,6 +28,6 @@ def test_status_success(client: FlaskClient, collection: Collection) -> None:
     program_id = str(doc_id)
 
     # Test the endpoint
-    resp = client.get(f'/api/v1/status/{program_id}')
+    resp = client.get(f'/shnootalk/compile/api/v1/status/{program_id}')
 
     assert resp.json == {'_id': program_id, 'output': test_output, 'status': test_status}
