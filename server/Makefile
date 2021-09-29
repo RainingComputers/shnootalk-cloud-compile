@@ -25,7 +25,7 @@ clean:
 	rm -f -r dist/
 
 test:
-	pytest tests
+	pytest tests -vv
 
 lint:
 	pylint $(APP_NAME) tests --rcfile ./.pylintrc
@@ -34,8 +34,8 @@ typechk:
 	mypy --package $(APP_NAME) --package tests --namespace-packages --install-types
 
 push:
-	docker build --no-cache . -t shnoo28/shnootalk-cloud-compile-server:0.0.6
-	docker push shnoo28/shnootalk-cloud-compile-server:0.0.6
+	docker build --no-cache . -t shnoo28/shnootalk-cloud-compile-server:0.0.7
+	docker push shnoo28/shnootalk-cloud-compile-server:0.0.7
 
 rundev:
 	python3 -m shnootalk_cc_server

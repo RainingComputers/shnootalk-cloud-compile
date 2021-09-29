@@ -21,6 +21,12 @@ spec:
             secretKeyRef:
               name: <filled-by-server>
               key: <filled-by-server>
+        - name: MONGO_DATABASE
+          value: <filled-by-server>
+        - name: MONGO_COLLECTION
+          value: <filled-by-server>
+        - name: TIMEOUT
+          value: <filled-by-server>
         volumeMounts:
           - name: program-file
             mountPath: /configmap/

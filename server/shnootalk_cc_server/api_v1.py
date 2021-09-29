@@ -14,6 +14,8 @@ from flask.wrappers import Response
 from shnootalk_cc_server.kube_apply import kube_apply
 from shnootalk_cc_server.config import mongo_collection
 from shnootalk_cc_server.config import MONGO_URL_SECRET_NAME, MONGO_URL_SECRET_KEY
+from shnootalk_cc_server.config import MONGO_DATABASE, MONGO_COLLECTION
+from shnootalk_cc_server.config import JOB_TIMEOUT
 from shnootalk_cc_server.config import COMPILE_JOB_NAMESPACE
 
 server = Blueprint('server', __name__)
@@ -40,10 +42,18 @@ def fill_template(program_id: str, programs: Dict[str, str]) -> List[Dict[str, A
 
     job_template_spec = job_template[JOB]['spec']['template']['spec']
 
-    job_template_spec['containers'][0]['env'][0]['valueFrom']['secretKeyRef'] = {
+    job_template_env = job_template_spec['containers'][0]['env']
+
+    job_template_env[0]['valueFrom']['secretKeyRef'] = {
         'name': MONGO_URL_SECRET_NAME,
         'key': MONGO_URL_SECRET_KEY
     }
+
+    job_template_env[1]['value'] = MONGO_DATABASE
+
+    job_template_env[2]['value'] = MONGO_COLLECTION
+
+    job_template_env[3]['value'] = JOB_TIMEOUT
 
     job_template_spec['containers'][0]['command'][-1] = program_id
 

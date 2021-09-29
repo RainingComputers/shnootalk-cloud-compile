@@ -35,6 +35,12 @@ spec:
             secretKeyRef:
               name: shnootalk-cloud-compile-mongodb-url
               key: connectionString
+        - name: MONGO_DATABASE
+          value: shnootalk-cloud-compile
+        - name: MONGO_COLLECTION
+          value: job-output
+        - name: TIMEOUT
+          value: "8"
         volumeMounts:
           - name: program-file
             mountPath: /configmap/

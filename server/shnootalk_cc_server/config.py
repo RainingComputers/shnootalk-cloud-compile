@@ -14,6 +14,8 @@ MONGO_COLLECTION = os.getenv('MONGO_COLLECTION', 'job-output')
 MONGO_URL_SECRET_NAME = os.getenv('MONGO_URL_SECRET_NAME', 'shnootalk-cloud-compile-mongodb-url')
 MONGO_URL_SECRET_KEY = os.getenv('MONGO_URL_SECRET_KEY', 'connectionString')
 
+JOB_TIMEOUT = os.getenv('JOB_TIMEOUT', '8')
+
 mongo_collection = MongoClient(MONGO_URL)[MONGO_DATABASE][MONGO_COLLECTION]
 
 if USE_INCLUSTER_CONFIG == 'true':
