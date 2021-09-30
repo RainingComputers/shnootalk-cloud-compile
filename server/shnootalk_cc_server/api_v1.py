@@ -1,65 +1,19 @@
-from typing import Dict, List, Any
+import logging
 
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
 
-import yaml
-
-from flask import Blueprint
-from flask import request
-from flask import jsonify
-from flask import make_response
-from flask.wrappers import Response
+from flask import Blueprint, Response
+from flask import jsonify, make_response, request
 
 from shnootalk_cc_server.kube_apply import kube_apply
-from shnootalk_cc_server.config import mongo_collection
-from shnootalk_cc_server.config import MONGO_URL_SECRET_NAME, MONGO_URL_SECRET_KEY
-from shnootalk_cc_server.config import MONGO_DATABASE, MONGO_COLLECTION
-from shnootalk_cc_server.config import JOB_TIMEOUT
-from shnootalk_cc_server.config import COMPILE_JOB_NAMESPACE
+from shnootalk_cc_server.config import mongo_collection, COMPILE_JOB_NAMESPACE
+
+from shnootalk_cc_server.template import fill_template
+from shnootalk_cc_server.validate import validate
 
 server = Blueprint('server', __name__)
-
-CONFIG_MAP = 0
-JOB = 1
-
-
-def fill_template(program_id: str, programs: Dict[str, str]) -> List[Dict[str, Any]]:
-    # Loads template file with kubernetes resource definition for a configmap and a job
-    # Fills the configmap with program files to execute
-
-    config_map_name = f'config-map-{program_id}'
-    job_name = f'compile-job-{program_id}'
-
-    with open('./shnootalk_cc_server/templates/job.yml', encoding='utf8') as yaml_f:
-        job_template = list(yaml.safe_load_all(yaml_f))
-
-    job_template[CONFIG_MAP]['metadata']['name'] = config_map_name
-
-    job_template[CONFIG_MAP]['data'] = programs
-
-    job_template[JOB]['metadata']['name'] = job_name
-
-    job_template_spec = job_template[JOB]['spec']['template']['spec']
-
-    job_template_env = job_template_spec['containers'][0]['env']
-
-    job_template_env[0]['valueFrom']['secretKeyRef'] = {
-        'name': MONGO_URL_SECRET_NAME,
-        'key': MONGO_URL_SECRET_KEY
-    }
-
-    job_template_env[1]['value'] = MONGO_DATABASE
-
-    job_template_env[2]['value'] = MONGO_COLLECTION
-
-    job_template_env[3]['value'] = JOB_TIMEOUT
-
-    job_template_spec['containers'][0]['command'][-1] = program_id
-
-    job_template_spec['volumes'][0]['configMap']['name'] = config_map_name
-
-    return job_template
+logger = logging.getLogger(__name__)
 
 
 @server.post('/dispatch')
@@ -70,12 +24,25 @@ def dispatch() -> Response:
     if programs is None:
         return make_response(jsonify({'error': 'Cannot parse request body as JSON'}), 400)
 
-    doc_id = mongo_collection.insert_one({'status': 'SCHEDULED'}).inserted_id
+    # Make sure the program has less than 65536 characters
+    if not validate(programs):
+        return make_response(jsonify({'error': 'Program too big'}), 400)
+
+    # Try to insert status into MongoDB
+    try:
+        doc_id = mongo_collection.insert_one({'status': 'SCHEDULED'}).inserted_id
+    except Exception:
+        logger.exception('Unable to insert status into MongoDB')
+        return make_response('', 500)
 
     # Create a kubernetes job with files mounted as configmap, and deploy job
     job_definition = fill_template(str(doc_id), programs)
 
-    kube_apply(job_definition, COMPILE_JOB_NAMESPACE)
+    try:
+        kube_apply(job_definition, COMPILE_JOB_NAMESPACE)
+    except Exception:
+        logger.exception('Unable to dispatch compile job into Kubernetes for %s', doc_id)
+        return make_response('', 500)
 
     # return id so client can poll the status of execution
     return jsonify({'_id': str(doc_id)})
@@ -83,11 +50,13 @@ def dispatch() -> Response:
 
 @server.route('/status/<program_id>')
 def status(program_id: str) -> Response:
+    # Test if it is a valid id
     try:
         object_id = ObjectId(program_id)
     except InvalidId:
         return make_response(jsonify({'error': 'Invalid id'}), 400)
 
+    # Search mongo for status
     doc = mongo_collection.find_one({'_id': object_id})
 
     if doc is None:
