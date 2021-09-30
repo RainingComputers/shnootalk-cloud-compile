@@ -30,7 +30,7 @@ class ExecutionStatus:
 
 def run_subprocess(command: List[str]) -> Tuple[bool, Optional[str], Optional[int]]:
     try:
-        subp = subprocess.run(command,
+        subp = subprocess.run(['unshare', '-r', '-n'] + command,
                               stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                               timeout=Config.TIMEOUT, )
 
