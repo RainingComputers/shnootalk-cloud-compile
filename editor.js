@@ -22,7 +22,7 @@ function popHistory(tabName) {
 }
 
 function removeHistory(tabName) {
-    tabHistory = tabHistory.filter(elem => elem != tabName)
+    tabHistory = tabHistory.filter((elem) => elem != tabName)
 }
 
 function getCurrentOpenTab(tabName) {
@@ -42,6 +42,10 @@ function createEditor(tabName) {
 
 function focusEditor(tabName) {
     editors[tabName].focus()
+}
+
+function setValue(tabName, value) {
+    editors[tabName].setValue(value, 1)
 }
 
 function destroyEditor(tabName) {
@@ -81,7 +85,7 @@ function closeTab(tabName) {
 
     destroyEditor(tabName)
 
-    removeHistory(tabName);
+    removeHistory(tabName)
 
     openTab(popHistory(tabName))
 }
@@ -93,8 +97,8 @@ function closeTabEvent(evt, tabName) {
 }
 
 function createTabOnEnter(evt, element) {
-    if(evt.key !== 'Enter' || element.value.length === 0) return;
-    
+    if (evt.key !== "Enter" || element.value.length === 0) return
+
     byId("ask-tab-name-modal").style.display = "none"
 
     const tabName = element.value
@@ -106,7 +110,7 @@ function createTabOnEnter(evt, element) {
 
 function askNameAndCreateNewTab() {
     byId("ask-tab-name-modal").style.display = "flex"
-    
+
     const textbox = byId("ask-tab-name-textbox")
     textbox.value = ""
     textbox.focus()
@@ -118,13 +122,15 @@ function newTab(tabName) {
         return
     }
 
-    makeAllTabsInactive() 
-    
+    makeAllTabsInactive()
+
     const tabTemplate = byId("new-tab-button-template").content.cloneNode(true)
     tabTemplate.getElementById("tab-name").innerHTML = tabName
     tabTemplate.getElementById("tab-button").setAttribute("onclick", `openTab('${tabName}')`)
     tabTemplate.getElementById("tab-button").setAttribute("id", getTabButtonId(tabName))
-    tabTemplate.getElementById("tab-close-button").setAttribute("onclick", `closeTabEvent(event, '${tabName}')`)
+    tabTemplate
+        .getElementById("tab-close-button")
+        .setAttribute("onclick", `closeTabEvent(event, '${tabName}')`)
 
     byId("tab-header").appendChild(tabTemplate)
 
@@ -137,15 +143,31 @@ function newTab(tabName) {
     tabHistory.push(tabName)
 }
 
-document.onkeydown = function(evt) {
-    if (evt.key === 'Escape') {
+document.onkeydown = function (evt) {
+    if (evt.key === "Escape") {
         byId("ask-tab-name-modal").style.display = "none"
         focusEditor(getCurrentOpenTab())
     }
-    
-    if ((evt.key === 't'|| evt.key == 'T') && evt.altKey) askNameAndCreateNewTab()    
+
+    if ((evt.key === "t" || evt.key == "T") && evt.altKey) askNameAndCreateNewTab()
+}
+
+function getPrograms() {
+    const contents = {}
+
+    for (let tabName in editors) {
+        contents[tabName] = editors[tabName].getValue()
+    }
+
+    return contents
 }
 
 pushHistory("main.shtk")
 createEditor("main.shtk")
 focusEditor("main.shtk")
+setValue("main.shtk", `fn main() -> int
+{
+    println("Hello world")
+    return 0
+}
+`)

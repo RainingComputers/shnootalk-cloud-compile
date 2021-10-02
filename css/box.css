@@ -133,6 +133,10 @@ textarea:focus {
   font-size: small;
 }
 
+.text-bold {
+  font-weight: bold;
+}
+
 /* Box child modifiers */
 
 .box-child-grow {
@@ -314,6 +318,14 @@ textarea:focus {
 .placeholder-foreground-white::placeholder,
 .foreground-white {
   color: #ffffff;
+}
+
+.foreground-green {
+  color: green;
+}
+
+.foreground-red {
+  color: red;
 }
 
 /* Ace editor */
