@@ -1,6 +1,8 @@
+![](logo.png)
+
 # ShnooTalk Cloud Compile
 
-Backend and infrastructure to compile and execute ShnooTalk programs on the cloud.
+Backend and infrastructure to compile and execute [ShnooTalk](https://github.com/RainingComputers/ShnooTalk) programs on the cloud.
 Primary use case is for users to try the language in the browser.
 
 The project is made up of two sub-projects, the job and the server. The server
