@@ -34,5 +34,5 @@ typechk:
 	mypy --package $(APP_NAME) --namespace-packages --install-types
 
 push:
-	docker build --no-cache . -t shnoo28/shnootalk-cloud-compile-job:0.0.2
-	docker push shnoo28/shnootalk-cloud-compile-job:0.0.2
+	docker build --no-cache . -t shnoo28/shnootalk-cloud-compile-job:0.0.3
+	docker push shnoo28/shnootalk-cloud-compile-job:0.0.3
