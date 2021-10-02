@@ -1,4 +1,4 @@
-const SERVER_URL = "http://192.168.144.2:80/shnootalk/compile/api/v1/"
+const SERVER_URL = "http://34.102.143.96:80/shnootalk/compile/api/v1/"
 const DISPATCH_ENDPOINT = SERVER_URL + "dispatch"
 
 function getStatusEndPoint(programId) {
