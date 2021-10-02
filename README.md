@@ -6,3 +6,7 @@ Web code editor for ShnooTalk Cloud Compile based on [shnootalk-ace](https://git
 (extended [ace](https://github.com/ajaxorg/ace) text editor with ShnooTalk syntax support).
 
 ShnooTalk playground uses the [Shnootalk Cloud Compile](https://github.com/RainingComputers/shnootalk-cloud-compile/) project for backend.
+
+**Configuration**
+
+Change `SERVER_URL` in `compile.js` to point to cloud compile.
