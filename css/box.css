@@ -117,10 +117,6 @@ textarea:focus {
   overflow: hidden;
 }
 
-.box-overflow-scroll {
-  overflow: scroll;
-}
-
 .box-rounded {
   border-radius: 2px;
 }
@@ -135,6 +131,10 @@ textarea:focus {
 
 .text-bold {
   font-weight: bold;
+}
+
+.text-no-wrap {
+  white-space: nowrap;
 }
 
 /* Box child modifiers */
@@ -336,4 +336,22 @@ textarea:focus {
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+/* Scrollbar */
+.scroll-y {
+  overflow-y: scroll;
+}
+
+.scroll-x {
+  overflow-x: scroll;
+}
+
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-hidden {
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
 }

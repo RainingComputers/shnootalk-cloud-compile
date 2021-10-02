@@ -165,9 +165,12 @@ function getPrograms() {
 pushHistory("main.shtk")
 createEditor("main.shtk")
 focusEditor("main.shtk")
-setValue("main.shtk", `fn main() -> int
+setValue(
+    "main.shtk",
+    `fn main() -> int
 {
     println("Hello world")
     return 0
 }
-`)
+`
+)

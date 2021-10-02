@@ -70,7 +70,6 @@ function statusCallback(executionStatus) {
     isSuccessStatus(status) ? ok() : error()
 
     showOutputPanel()
-    console.log(executionStatus.output)
 
     if (executionStatus.output) setOutput(executionStatus.output)
     else setOutput(statusToDisplayString(executionStatus.status))

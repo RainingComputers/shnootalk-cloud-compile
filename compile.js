@@ -32,8 +32,6 @@ function dispatchProgram(statusCallback, programs) {
     request(DISPATCH_ENDPOINT, "POST", JSON.stringify(programs), (response) => {
         const programId = response["_id"]
 
-        console.log(programId)
-
         let intervalId = setInterval(pollServer, 500, statusCallback, programId, () => {
             clearInterval(intervalId)
         })
