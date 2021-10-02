@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: compile-exec-job
-        image: docker.io/shnoo28/shnootalk-cloud-compile-job:0.0.1
+        image: docker.io/shnoo28/shnootalk-cloud-compile-job:0.0.2
         command: ["python3",  "shnootalk_cc_job", "/configmap/", "/progdir/", "613c7fcf1cbaaff506b1084c"]
         env:
         - name: MONGO_URL
