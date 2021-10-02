@@ -19,7 +19,7 @@ Both the server and the job use MongoDB to keep track of the execution status.
 4. The client continuously polls the /status/id endpoint
 5. Server responds to with the status of the program, reading from MongoDB
 6. The Job has a python script that invokes the ShnooTalk compiler (compile) and the Clang Compiler (link), executes the output executable, and writes the status and output to MongoDB. (Uses ID passed in step 3)
-7. The client gets a terminal execution status and the output, stops polling the server. Terminal status executions are EXEC_TIMEDOUT, CLANG_LINK_TIMEDOUT, CLANG_LINK_FAILED COMPILE_FAILED, COMPILE_TIMEDOUT. The Job also writes a non terminal status COMPILE_STARTED before compilation in step 6.
+7. The client gets a terminal execution status and the output, stops polling the server. Terminal status executions are SUCCESS, EXEC_TIMEDOUT, CLANG_LINK_TIMEDOUT, CLANG_LINK_FAILED COMPILE_FAILED, COMPILE_TIMEDOUT. The Job also writes a non terminal status COMPILE_STARTED before compilation in step 6.
 
 ## Running on local for development
 
