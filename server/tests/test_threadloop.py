@@ -11,4 +11,4 @@ def test_threadloop() -> None:
     time.sleep(2)
     threadloop.stop()
 
-    assert callback.call_count <= 4
+    assert callback.call_count >= 3 and callback.call_count <= 4
