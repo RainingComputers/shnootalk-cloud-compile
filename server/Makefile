@@ -34,8 +34,8 @@ typechk:
 	mypy --package $(APP_NAME) --package tests --namespace-packages --install-types
 
 push:
-	docker build --no-cache . -t shnoo28/shnootalk-cloud-compile-server:0.1.11
-	docker push shnoo28/shnootalk-cloud-compile-server:0.1.11
+	docker build --no-cache . -t shnoo28/shnootalk-cloud-compile-server:0.1.12
+	docker push shnoo28/shnootalk-cloud-compile-server:0.1.12
 
 rundev:
 	python3 -m shnootalk_cc_server
