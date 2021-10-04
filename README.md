@@ -92,7 +92,7 @@ watch 'curl -s --request GET http://127.0.0.1:5000/shnootalk/compile/api/v1/stat
 | MONGO_URL_SECRET_NAME  | Name of the secret in which MongoDB connection string is present. This secret will be used by jobs to connect to the database, and should be deployed in COMPILE_JOB_NAMESPACE
 | MONGO_URL_SECRET_KEY   | The key in which the connection string is present in the above secret MONGO_URL_SECRET_NAME
 | JOB_TIMEOUT            | Sets TIMEOUT env variable on the Job
-| HEARTBEAT_JOB_ENABLE   | Spawns a compile job every 3 minutes to keep GKE autopilot on its toes, so jobs doesn't stay pending for too long
+| HEARTBEAT_JOB_ENABLE   | Spawns a compile job every HEARTBEAT_JOB_INTERVAL seconds to keep GKE autopilot on its toes, so jobs doesn't stay pending for too long
 | HEARTBEAT_JOB_INTERVAL | Time between heartbeat jobs in seconds
 
 ### Job env variables (controlled by server)
