@@ -41,7 +41,7 @@ def test_heartbeat(monkeypatch: MonkeyPatch) -> None:
     monkeypatch.setattr(shnootalk_cc_server.heartbeat, 'gen_heartbeat_id', gen_heartbeat_id_stub)
     monkeypatch.setattr(shnootalk_cc_server.heartbeat, 'kube_apply', kube_apply_mock)
 
-    shnootalk_cc_server.heartbeat.heartbeat()
+    shnootalk_cc_server.heartbeat.send_heartbeat()
 
     kube_apply_mock.assert_called_once()
     assert kube_apply_mock.call_args[0][0] == fill_template('heartbeat-v15hn0-1633358581', program)

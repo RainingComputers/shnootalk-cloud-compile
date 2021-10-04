@@ -15,7 +15,7 @@ def gen_heartbeat_id() -> str:
     return f'{hostname_trimmed}-{timestamp_now}'
 
 
-def heartbeat() -> None:
+def send_heartbeat() -> None:
     program = 'fn main() -> int { println("Hello world") return 0 }'
 
     job_name = f'heartbeat-{gen_heartbeat_id()}'
