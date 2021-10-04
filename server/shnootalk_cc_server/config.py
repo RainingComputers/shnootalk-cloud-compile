@@ -16,7 +16,7 @@ MONGO_URL_SECRET_KEY = os.getenv('MONGO_URL_SECRET_KEY', 'connectionString')
 
 JOB_TIMEOUT = os.getenv('JOB_TIMEOUT', '8')
 
-HEARTBEAT_JOB_ENABLE = os.getenv('HEARTBEAT_ENABLE', 'false')
+HEARTBEAT_JOB_ENABLE = os.getenv('HEARTBEAT_JOB_ENABLE', 'false')
 HEARTBEAT_JOB_INTERVAL = int(os.getenv('HEARTBEAT_JOB_INTERVAL', '180'))
 
 mongo_collection = MongoClient(MONGO_URL)[MONGO_DATABASE][MONGO_COLLECTION]
