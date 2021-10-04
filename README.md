@@ -81,17 +81,19 @@ watch 'curl -s --request GET http://127.0.0.1:5000/shnootalk/compile/api/v1/stat
 
 ### Server env variables
 
-| Name                  | Description    
-|-----------------------|-------------
-| USE_INCLUSTER_CONFIG  | `"true"` or `"false"`. If server is deployed in a kubernetes cluster, setting this to `"true"` will tell the server to deploy jobs in the cluster it is running in.
-| KUBE_CONTEXT          | Only applicable if USE_INCLUSTER_CONFIG is set to `"false"`. It will get cluster details from kubernetes context available on the machine it is running in.
-| COMPILE_JOB_NAMESPACE | The namespace in which compile jobs will be deployed.
-| MONGO_URL             | MongoDB connection string 
-| MONGO_DATABASE        | Name of the database to use
-| MONGO_COLLECTION      | Name of the collection to use
-| MONGO_URL_SECRET_NAME | Name of the secret in which MongoDB connection string is present. This secret will be used by jobs to connect to the database, and should be deployed in COMPILE_JOB_NAMESPACE
-| MONGO_URL_SECRET_KEY  | The key in which the connection string is present in the above secret MONGO_URL_SECRET_NAME
-| JOB_TIMEOUT           | Sets TIMEOUT env variable on the Job
+| Name                   | Description    
+|------------------------|-------------
+| USE_INCLUSTER_CONFIG   | `"true"` or `"false"`. If server is deployed in a kubernetes cluster, setting this to `"true"` will tell the server to deploy jobs in the cluster it is running in.
+| KUBE_CONTEXT           | Only applicable if USE_INCLUSTER_CONFIG is set to `"false"`. It will get cluster details from kubernetes context available on the machine it is running in.
+| COMPILE_JOB_NAMESPACE  | The namespace in which compile jobs will be deployed.
+| MONGO_URL              | MongoDB connection string 
+| MONGO_DATABASE         | Name of the database to use
+| MONGO_COLLECTION       | Name of the collection to use
+| MONGO_URL_SECRET_NAME  | Name of the secret in which MongoDB connection string is present. This secret will be used by jobs to connect to the database, and should be deployed in COMPILE_JOB_NAMESPACE
+| MONGO_URL_SECRET_KEY   | The key in which the connection string is present in the above secret MONGO_URL_SECRET_NAME
+| JOB_TIMEOUT            | Sets TIMEOUT env variable on the Job
+| HEARTBEAT_JOB_ENABLE   | Spawns a compile job every 3 minutes to keep GKE autopilot on its toes, so jobs doesn't stay pending for too long
+| HEARTBEAT_JOB_INTERVAL | Time between heartbeat jobs in seconds
 
 ### Job env variables (controlled by server)
 

@@ -6,6 +6,7 @@
         "configmap",
         "getenv",
         "Haha",
+        "INCLUSTER",
         "println",
         "progdir",
         "pymongo",
