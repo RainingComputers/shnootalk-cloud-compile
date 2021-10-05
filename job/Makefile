@@ -25,7 +25,7 @@ clean:
 	rm -f -r dist/
 
 test:
-	pytest tests
+	pytest tests -vv
 
 lint:
 	pylint $(APP_NAME)  --rcfile ./.pylintrc

@@ -16,6 +16,7 @@ class Config:
     MONGO_URL = os.getenv('MONGO_URL', default='mongodb://root:example@localhost:27017')
     MONGO_DATABASE = os.getenv('MONGO_DATABASE', default='shnootalk-cloud-compile')
     MONGO_COLLECTION = os.getenv('MONGO_COLLECTION', 'job-output')
+    HEARTBEAT = os.getenv('HEARTBEAT', 'false')
 
 
 class ExecutionStatus:
@@ -85,6 +86,13 @@ def list_files_only(dir_path: str) -> List[str]:
     return [f for f in os.listdir(dir_path) if os.path.isfile(os.path.join(dir_path, f))]
 
 
+def copy_program_files_and_cwd(configmap_dir: str, empty_dir: str) -> None:
+    for file in list_files_only(configmap_dir):
+        shutil.copy(os.path.join(configmap_dir, file), os.path.join(empty_dir, file))
+
+    os.chdir(empty_dir)
+
+
 def main(configmap_dir: str, empty_dir: str, mongo_id: ObjectId) -> None:
     # Connect to mongoDB
     cluster = MongoClient(Config.MONGO_URL)
@@ -95,10 +103,7 @@ def main(configmap_dir: str, empty_dir: str, mongo_id: ObjectId) -> None:
     os.environ['MONGO_URL'] = 'Haha, nice try :)'
 
     # Copy files from config map to scratch volume
-    for file in list_files_only(configmap_dir):
-        shutil.copy(os.path.join(configmap_dir, file), os.path.join(empty_dir, file))
-
-    os.chdir(empty_dir)
+    copy_program_files_and_cwd(configmap_dir, empty_dir)
 
     # Run the program and get output
     status, output = run_program('main.shtk')
@@ -107,5 +112,13 @@ def main(configmap_dir: str, empty_dir: str, mongo_id: ObjectId) -> None:
     collection.update_one({'_id': mongo_id}, {'$set': {'status': status, 'output': output}})
 
 
+def heartbeat_main(configmap_dir: str, empty_dir: str) -> None:
+    copy_program_files_and_cwd(configmap_dir, empty_dir)
+    run_program('main.shtk')
+
+
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2], ObjectId(sys.argv[3]))
+    if Config.HEARTBEAT == 'false':
+        main(sys.argv[1], sys.argv[2], ObjectId(sys.argv[3]))
+    else:
+        heartbeat_main(sys.argv[1], sys.argv[2])
