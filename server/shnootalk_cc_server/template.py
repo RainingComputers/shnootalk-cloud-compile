@@ -10,7 +10,8 @@ CONFIG_MAP = 0
 JOB = 1
 
 
-def fill_template(program_id: str, programs: Dict[str, str]) -> List[Dict[str, Any]]:
+def fill_template(program_id: str, programs: Dict[str, str],
+                  heartbeat: bool = False) -> List[Dict[str, Any]]:
     # Loads template file with kubernetes resource definition for a configmap and a job
     # Fills the configmap with program files to execute
 
@@ -36,6 +37,7 @@ def fill_template(program_id: str, programs: Dict[str, str]) -> List[Dict[str, A
     job_template_env[1]['value'] = MONGO_DATABASE
     job_template_env[2]['value'] = MONGO_COLLECTION
     job_template_env[3]['value'] = JOB_TIMEOUT
+    job_template_env[4]['value'] = 'true' if heartbeat else 'false'
 
     job_template_spec['containers'][0]['command'][-1] = program_id
 

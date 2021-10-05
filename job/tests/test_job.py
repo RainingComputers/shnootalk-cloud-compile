@@ -46,11 +46,11 @@ expected_status_list = [
 
 @pytest.mark.parametrize("fixture_dir,expected_status,expected_output",
                          zip(fixtures_dir_list, expected_status_list, expected_outputs_list))
-def test_success(mongo_connection: Tuple[Collection, str],
-                 empty_dir: str,
-                 fixture_dir: str,
-                 expected_status: str,
-                 expected_output: str) -> None:
+def test_main(mongo_connection: Tuple[Collection, str],
+              empty_dir: str,
+              fixture_dir: str,
+              expected_status: str,
+              expected_output: str) -> None:
 
     from shnootalk_cc_job.__main__ import main
 

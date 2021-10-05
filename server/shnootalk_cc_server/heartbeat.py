@@ -19,7 +19,7 @@ def send_heartbeat() -> None:
     program = 'fn main() -> int { println("Hello world") return 0 }'
 
     job_name = f'heartbeat-{gen_heartbeat_id()}'
-    job_definition = fill_template(job_name, {'main.shtk': program})
+    job_definition = fill_template(job_name, {'main.shtk': program}, heartbeat=True)
 
     try:
         kube_apply(job_definition, COMPILE_JOB_NAMESPACE)
