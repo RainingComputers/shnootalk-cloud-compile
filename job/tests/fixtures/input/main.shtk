@@ -1,6 +1,8 @@
-fn foobar() 
+fn main() -> int
 {
     var a: char[20]
     input(a)
     println(a)
+
+    return 0
 }

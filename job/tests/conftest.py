@@ -28,6 +28,9 @@ def mongo_connection() -> Tuple[Collection, str]:
 @pytest.fixture
 def empty_dir() -> Iterator[str]:
     dir_name = 'empty_dir'
+
+    shutil.rmtree(dir_name, ignore_errors=True)
+
     cwd = os.getcwd()
     os.mkdir(dir_name)
 

@@ -15,8 +15,12 @@ data:
   foobar.shtk: |
     fn foobar() 
     {
-        println("foobar!")
+        var a: char[20]
+        input(a)
+        println(a)
     }
+  input: |
+    foobar!
 ---
 apiVersion: batch/v1
 kind: Job

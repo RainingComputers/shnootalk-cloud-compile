@@ -13,6 +13,7 @@ fixtures_dir_list = [
     './tests/fixtures/compile_fail',
     './tests/fixtures/link_fail',
     './tests/fixtures/mongo_env_leak',
+    './tests/fixtures/input',
     './tests/fixtures/exec_timeout'
 ]
 
@@ -32,6 +33,8 @@ expected_outputs_list = [
 
     'Haha, nice try :)\n',
 
+    'Hello\n',
+
     None
 ]
 
@@ -39,6 +42,7 @@ expected_status_list = [
     'SUCCESS',
     'COMPILE_FAILED',
     'CLANG_LINK_FAILED',
+    'SUCCESS',
     'SUCCESS',
     'EXEC_TIMEDOUT'
 ]

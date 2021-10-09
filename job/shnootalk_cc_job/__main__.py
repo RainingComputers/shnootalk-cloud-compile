@@ -29,22 +29,19 @@ class ExecutionStatus:
     COMPILE_STARTED = 'COMPILE_STARTED'
 
 
-def run_subprocess(command: List[str]) -> Tuple[bool, Optional[str], Optional[int]]:
+def run_subprocess(command: List[str],
+                   input_str: str = '') -> Tuple[bool, Optional[str], Optional[int]]:
     try:
-        subp = subprocess.run(command,
-                              stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                              timeout=Config.TIMEOUT, )
-
-        console_output = subp.stdout.decode('utf-8')
-        console_err_output = subp.stderr.decode('utf-8')
+        subp = subprocess.run(command, capture_output=True, text=True,
+                              timeout=Config.TIMEOUT, input=input_str)
 
     except subprocess.TimeoutExpired:
         return True, None, None
 
-    return False, console_output+console_err_output, subp.returncode
+    return False, subp.stdout+subp.stderr, subp.returncode
 
 
-def run_program(file_name: str) -> Tuple[str, Optional[str]]:
+def run_program(file_name: str, input_str: str) -> Tuple[str, Optional[str]]:
     # Remove all object files before running the test
     os.system('rm -f *.o')
     os.system('rm -f ./test')
@@ -73,7 +70,7 @@ def run_program(file_name: str) -> Tuple[str, Optional[str]]:
         return ExecutionStatus.CLANG_LINK_FAILED, clang_output
 
     # Run the executable and return the output from the executable
-    timedout, exec_output, _ = run_subprocess(['./prog'])
+    timedout, exec_output, _ = run_subprocess(['./prog'], input_str)
 
     if timedout:
         return ExecutionStatus.EXEC_TIMEDOUT, None
@@ -93,6 +90,13 @@ def copy_program_files_and_cwd(configmap_dir: str, empty_dir: str) -> None:
     os.chdir(empty_dir)
 
 
+def get_string_from_file(file_name: str) -> str:
+    if not os.path.exists(file_name):
+        return ''
+
+    return open(file_name, encoding='utf-8').read()
+
+
 def main(configmap_dir: str, empty_dir: str, mongo_id: ObjectId) -> None:
     # Connect to mongoDB
     cluster = MongoClient(Config.MONGO_URL)
@@ -106,7 +110,7 @@ def main(configmap_dir: str, empty_dir: str, mongo_id: ObjectId) -> None:
     copy_program_files_and_cwd(configmap_dir, empty_dir)
 
     # Run the program and get output
-    status, output = run_program('main.shtk')
+    status, output = run_program('main.shtk', get_string_from_file('input'))
 
     # Dump output to mongoDB
     collection.update_one({'_id': mongo_id}, {'$set': {'status': status, 'output': output}})
@@ -114,7 +118,7 @@ def main(configmap_dir: str, empty_dir: str, mongo_id: ObjectId) -> None:
 
 def heartbeat_main(configmap_dir: str, empty_dir: str) -> None:
     copy_program_files_and_cwd(configmap_dir, empty_dir)
-    run_program('main.shtk')
+    run_program('main.shtk', '')
 
 
 if __name__ == '__main__':

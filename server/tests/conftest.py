@@ -31,6 +31,7 @@ def test_programs() -> Dict[str, str]:
     test_programs_dict = {}
     test_programs_dict['main.shtk'] = pathlib.Path('./tests/fixtures/main.shtk').read_text()
     test_programs_dict['foobar.shtk'] = pathlib.Path('./tests/fixtures/foobar.shtk').read_text()
+    test_programs_dict['input'] = pathlib.Path('./tests/fixtures/input').read_text()
     return test_programs_dict
 
 
