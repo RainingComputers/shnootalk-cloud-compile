@@ -39,7 +39,7 @@ function setOutput(outputString) {
     byId("stdout-panel-output").innerHTML = outputString
 }
 
-function setStatus(status) {
+function setLoadingPanelStatus(status) {
     byId("loading-panel-status").innerHTML = statusToDisplayString(status)
 }
 
@@ -63,20 +63,20 @@ function isTerminalStatus(status) {
 }
 
 function isSuccessStatus(status) {
-    return status !== "SUCCESS"
+    return status === "SUCCESS"
 }
 
 function statusCallback(executionStatus) {
-    const status = executionStatus.status
-    setStatus(status)
+    const compileStatus = executionStatus.status
+    setLoadingPanelStatus(compileStatus)
 
-    if (!isTerminalStatus(status)) {
+    if (!isTerminalStatus(compileStatus)) {
         neither()
         showLoadingPanel()
         return
     }
 
-    isSuccessStatus(status) ? ok() : error()
+    isSuccessStatus(compileStatus) ? ok() : error()
 
     showOutputPanel()
 
@@ -86,10 +86,17 @@ function statusCallback(executionStatus) {
     enableRunButton()
 }
 
+function errorCallback(errorString) {
+    showOutputPanel()
+    setOutput(errorString)
+    enableRunButton()
+    error()
+}
+
 function run(programs) {
     disableRunButton()
     neither()
-    setStatus("SENDING_REQUEST")
+    setLoadingPanelStatus("SENDING_REQUEST")
     showLoadingPanel()
-    dispatchProgram(statusCallback, programs)
+    dispatchProgram(statusCallback, errorCallback, programs)
 }
