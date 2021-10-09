@@ -12,15 +12,24 @@ function showOutputPanel() {
     byId("stdout-panel").style.display = "flex"
 }
 
+function disableRunButton() {
+    byId("run-button").disabled = true
+}
+
+function enableRunButton() {
+    byId("run-button").disabled = false
+}
+
 function statusToDisplayString(status) {
     const stringMap = {
+        SENDING_REQUEST: "Sending request",
         SCHEDULED: "Scheduled",
         EXEC_TIMEDOUT: "Execution timed out",
         CLANG_LINK_TIMEDOUT: "Link timed out",
         CLANG_LINK_FAILED: "Link error",
         COMPILE_FAILED: "Compile error",
         COMPILE_TIMEDOUT: "Compile time out",
-        COMPILE_STARTED: "Compile started",
+        COMPILE_STARTED: "Compile started"
     }
 
     return stringMap[status]
@@ -73,8 +82,14 @@ function statusCallback(executionStatus) {
 
     if (executionStatus.output) setOutput(executionStatus.output)
     else setOutput(statusToDisplayString(executionStatus.status))
+
+    enableRunButton()
 }
 
 function run(programs) {
+    disableRunButton()
+    neither()
+    setStatus("SENDING_REQUEST")
+    showLoadingPanel()
     dispatchProgram(statusCallback, programs)
 }

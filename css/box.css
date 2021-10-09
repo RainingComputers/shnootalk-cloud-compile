@@ -292,6 +292,10 @@ textarea:focus {
   background: #059862;
 }
 
+.background-green[disabled] {
+  background: #a08000f9 !important;
+}
+
 .hover-background-green:hover {
   background: #04aa6d;
 }

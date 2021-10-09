@@ -24,8 +24,8 @@
     <div class="box box-width-full box-child-grow">
 
         <div class="box box-arrange-hor box-width-full background-25 box-items-center">
-            <div class="box box-arrange-hor box-arrange-gap box-height-full scroll-x scroll-hidden hor-scroll" style="height: 46px;"
-                id="tab-header">
+            <div class="box box-arrange-hor box-arrange-gap box-height-full scroll-x scroll-hidden hor-scroll"
+                style="height: 46px;" id="tab-header">
                 <button id="tab-main.shtk"
                     class="box box-arrange-hor box-items-center box-button box-button-tab box-height-full pad-hor pad-vert box-min-width-120 active-background-1e hover-background-33 background-2d foreground-f80 active-foreground-cc tab-links active"
                     onclick="openTab('main.shtk')">
@@ -46,8 +46,9 @@
                 <span class="pad-left text-no-wrap">ShnooTalk Playground</span>
             </div>
 
-            <button
-                class="box box-button box-arrange-hor box-items-center box-height-full pad-vert pad-hor background-green hover-background-green" onclick="run(getPrograms())">
+            <button id="run-button"
+                class="box box-button box-arrange-hor box-items-center box-height-full pad-vert pad-hor background-green hover-background-green"
+                onclick="run(getPrograms())">
                 <img src="icons/play.svg" width="15px" alt="">
                 <span class="pad-left-small foreground-white">Run</span>
             </button>
@@ -65,8 +66,10 @@
                 <div class="box box-arrange-hor">
                     <img src="icons/terminal.svg" class="pad-left" width="16px" alt="">
                     <span class="pad-hor pad-vert box-child-grow foreground-cc font-small">OUTPUT</span>
-                    <span id="exec-error" class="pad-hor pad-vert foreground-green font-small text-bold" style="display: none;">OK</span>
-                    <span id="exec-ok" class="pad-hor pad-vert foreground-red font-small text-bold" style="display: none;">ERROR</span>
+                    <span id="exec-error" class="pad-hor pad-vert foreground-green font-small text-bold"
+                        style="display: none;">OK</span>
+                    <span id="exec-ok" class="pad-hor pad-vert foreground-red font-small text-bold"
+                        style="display: none;">ERROR</span>
                 </div>
                 <div id="stdout-panel" class="box box-child-grow">
                     <pre class="box box-child-grow pad-hor scroll-x scroll-hidden hor-scroll">
@@ -85,7 +88,9 @@
                     <span class="pad-hor pad-vert box-width-full foreground-cc font-small ">INPUT</span>
                 </div>
                 <div class="box box-height-quarter pad-hor pad-bottom">
-                    <textarea id="input-textarea" class="box-width-full box-height-full background-2d foreground-cc placeholder-foreground-f80" placeholder="Enter input here"></textarea>
+                    <textarea id="input-textarea"
+                        class="box-width-full box-height-full background-2d foreground-cc placeholder-foreground-f80"
+                        placeholder="Enter input here"></textarea>
                 </div>
             </div>
         </div>
