@@ -2,13 +2,15 @@ from flask.testing import FlaskClient
 
 from pymongo.collection import Collection
 
+from shnootalk_cc_server.messages import Messages
+
 
 def test_status_invalid_id(client: FlaskClient) -> None:
     resp = client.get('/shnootalk/compile/api/v1/status/invalidId')
 
     assert resp.status_code == 400
 
-    assert resp.json == {'error': 'Invalid id'}
+    assert resp.json == {'error': Messages.INVALID_ID}
 
 
 def test_status_does_not_exist(client: FlaskClient) -> None:
@@ -16,7 +18,7 @@ def test_status_does_not_exist(client: FlaskClient) -> None:
 
     assert resp.status_code == 404
 
-    assert resp.json == {'error': 'Program with this id was not found'}
+    assert resp.json == {'error': Messages.PROG_NOT_FOUND}
 
 
 def test_status_success(client: FlaskClient, collection: Collection) -> None:

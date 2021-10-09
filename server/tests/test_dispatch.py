@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Any
 from unittest.mock import Mock
 
 from pytest import LogCaptureFixture
@@ -8,9 +8,13 @@ from flask.testing import FlaskClient
 
 from pymongo.collection import Collection
 from bson.objectid import ObjectId
+import pytest
 
 import shnootalk_cc_server.api_v1
 from shnootalk_cc_server.api_v1 import fill_template
+
+
+from shnootalk_cc_server.messages import Messages
 
 
 def test_dispatch_invalid_json(client: FlaskClient) -> None:
@@ -18,7 +22,7 @@ def test_dispatch_invalid_json(client: FlaskClient) -> None:
 
     assert resp.status_code == 400
 
-    assert resp.json == {'error': 'Cannot parse request body as JSON'}
+    assert resp.json == {'error': Messages.CANNOT_PARSE}
 
 
 def test_dispatch(client: FlaskClient, collection: Collection,
@@ -69,13 +73,21 @@ def test_dispatch_mongo_ex(client: FlaskClient, test_programs: Dict[str, str],
     resp = client.post('/shnootalk/compile/api/v1/dispatch', json=test_programs)
 
     assert resp.status_code == 500
-    assert caplog.record_tuples[-1][-1] == 'Unable to insert status into MongoDB'
+    assert caplog.record_tuples[-1][-1] == Messages.UNABLE_TO_INSERT
 
 
-def test_dispatch_prog_too_big(client: FlaskClient) -> None:
-    test_programs = {'file1.shtk': 'c'*32768, 'file2.shtk': 'd'*32768}
+test_invalid_programs = [
+    {'file1.shtk': 'c'*32768, 'file2.shtk': 'd'*32768},
+    {'folder/file.shtk': 'hello', 'file.shtk.wrongext': 'world'},
+    {'file.shtk': 'hello', 'file.shtk.wrongext': 'world'},
+    {'file.shtk': {'nested.shtk': 'hello'}},
+    {'scary': {'fake': 'hello'}}
+]
 
+
+@pytest.mark.parametrize('test_programs', test_invalid_programs)
+def test_dispatch_invalid_schema(client: FlaskClient, test_programs: Any) -> None:
     resp = client.post('/shnootalk/compile/api/v1/dispatch', json=test_programs)
 
     assert resp.status_code == 400
-    assert resp.json == {'error': 'Program too big'}
+    assert resp.json == {'error': Messages.PROG_TOO_BIG_OR_INVALID_NAME_OR_JSON}
