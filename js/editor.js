@@ -159,6 +159,8 @@ function getPrograms() {
         contents[tabName] = editors[tabName].getValue()
     }
 
+    contents["input"] = byId("input-textarea").value
+
     return contents
 }
 
