@@ -96,26 +96,6 @@ function closeTabEvent(evt, tabName) {
     closeTab(tabName)
 }
 
-function createTabOnEnter(evt, element) {
-    if (evt.key !== "Enter" || element.value.length === 0) return
-
-    byId("ask-tab-name-modal").style.display = "none"
-
-    const tabName = element.value
-    newTab(tabName)
-
-    // Timeout of 1 ms so the editor does not capture the Enter key event
-    setTimeout(() => focusEditor(tabName), 1)
-}
-
-function askNameAndCreateNewTab() {
-    byId("ask-tab-name-modal").style.display = "flex"
-
-    const textbox = byId("ask-tab-name-textbox")
-    textbox.value = ""
-    textbox.focus()
-}
-
 function newTab(tabName) {
     if (tabExists(tabName)) {
         openTab(tabName)
@@ -143,15 +123,6 @@ function newTab(tabName) {
     tabHistory.push(tabName)
 }
 
-document.onkeydown = function (evt) {
-    if (evt.key === "Escape") {
-        byId("ask-tab-name-modal").style.display = "none"
-        focusEditor(getCurrentOpenTab())
-    }
-
-    if ((evt.key === "t" || evt.key == "T") && evt.altKey) askNameAndCreateNewTab()
-}
-
 function getPrograms() {
     const contents = {}
 
@@ -162,6 +133,40 @@ function getPrograms() {
     contents["input"] = byId("input-textarea").value
 
     return contents
+}
+
+function showInfoModal() {
+    byId("info-modal").style.display = "flex"
+}
+
+function askNameAndCreateNewTab() {
+    byId("ask-tab-name-modal").style.display = "flex"
+
+    const textbox = byId("ask-tab-name-textbox")
+    textbox.value = ""
+    textbox.focus()
+}
+
+function createTabOnEnter(evt, element) {
+    if (evt.key !== "Enter" || element.value.length === 0) return
+
+    byId("ask-tab-name-modal").style.display = "none"
+
+    const tabName = element.value
+    newTab(tabName)
+
+    // Timeout of 1 ms so the editor does not capture the Enter key event
+    setTimeout(() => focusEditor(tabName), 1)
+}
+
+document.onkeydown = function (evt) {
+    if (evt.key === "Escape") {
+        byId("ask-tab-name-modal").style.display = "none"
+        byId("info-modal").style.display = "none"
+        focusEditor(getCurrentOpenTab())
+    }
+
+    if ((evt.key === "t" || evt.key == "T") && evt.altKey) askNameAndCreateNewTab()
 }
 
 pushHistory("main.shtk")

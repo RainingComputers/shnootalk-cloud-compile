@@ -1,3 +1,5 @@
+![](icons/cloud-compile.png)
+
 # ShnooTalk Playground
 
 Run and try the [ShnooTalk](https://github.com/RainingComputers/ShnooTalk) language from your browser!

@@ -21,6 +21,27 @@
         </div>
     </div>
 
+    <div id="info-modal" class="box box-modal-background box-arrange-hor">
+        <div class="box box-items-center box-modal-window background-25 pad-hor pad-vert">
+            <img src="icons/cloud-compile.png" class="" width="128px" alt="">
+            <span class="foreground-cc font-small pad-vert" style="font-size: x-large;">Shnootalk Playground</span>
+            <div class="box font-small box-items-center pad-hor">
+                <a href="https://github.com/RainingComputers/ShnooTalk" class="foreground-cc text-no-wrap"
+                    target="_blank">github.com/RainingComputers/ShnooTalk</a>
+
+                <a href="https://github.com/RainingComputers/shnootalk-cloud-compile" class="foreground-cc text-no-wrap"
+                    target="_blank">github.com/RainingComputers/shnootalk-cloud-compile</a>
+
+                <a href="https://github.com/RainingComputers/shnootalk-playground" class="foreground-cc text-no-wrap"
+                    target="_blank">github.com/RainingComputers/shnootalk-playground</a>
+
+                <span class="foreground-f80 text-no-wrap foreground-f80 pad-vert" style="font-size: xx-small;">
+                    © Copyrights 2021 RainingComputers
+                </span>
+            </div>
+        </div>
+    </div>
+
     <div class="box box-width-full box-child-grow">
 
         <div class="box box-arrange-hor box-width-full background-25 box-items-center">
@@ -40,10 +61,13 @@
                     width="15px" alt="">
             </button>
 
-            <div
-                class="box box-arrange-hor box-items-center pad-hor pad-vert background-25 box-float-right foreground-cc ">
+            <div class="box box-arrange-hor box-items-center pad-hor pad-vert background-25 box-float-right foreground-cc cursor-pointer hover-background-darken"
+                onclick="showInfoModal()">
                 <img src="icons/logo.svg" class="" width="50px" alt="">
-                <span class="pad-left text-no-wrap">ShnooTalk Playground</span>
+                <span class="box">
+                    <span class="pad-left-small text-no-wrap font-small">ShnooTalk Playground</span>
+                </span>
+
             </div>
 
             <button id="run-button"
