@@ -33,7 +33,7 @@ function createEditor(tabName) {
     let editor = ace.edit(getTabContentDivId(tabName))
     editor.setTheme("ace/theme/vscode")
     editor.session.setMode("ace/mode/shnootalk")
-    editor.setFontSize(18)
+    editor.setFontSize(17)
     editor.setShowPrintMargin(false)
     editor.setHighlightActiveLine(false)
 
