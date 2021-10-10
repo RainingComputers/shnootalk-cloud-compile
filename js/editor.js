@@ -159,10 +159,14 @@ function createTabOnEnter(evt, element) {
     setTimeout(() => focusEditor(tabName), 1)
 }
 
+function closeAllModals() {
+    byId("ask-tab-name-modal").style.display = "none"
+    byId("info-modal").style.display = "none"
+}
+
 document.onkeydown = function (evt) {
     if (evt.key === "Escape") {
-        byId("ask-tab-name-modal").style.display = "none"
-        byId("info-modal").style.display = "none"
+        closeAllModals()
         focusEditor(getCurrentOpenTab())
     }
 

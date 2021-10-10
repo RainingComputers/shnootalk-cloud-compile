@@ -11,8 +11,8 @@
 </head>
 
 <body class="box-root">
-    <div id="ask-tab-name-modal" class="box box-modal-background box-arrange-hor">
-        <div class="box box-modal-window background-25 pad-hor box-width-quarter">
+    <div id="ask-tab-name-modal" class="box box-modal-background box-arrange-hor" onclick="closeAllModals()">
+        <div class="box box-modal-window background-25 pad-hor box-width-quarter" onclick="event.stopPropagation()">
             <span class="foreground-cc font-small pad-vert-small">Enter name</span>
             <span class="pad-bottom-small">
                 <input id="ask-tab-name-textbox" type="text" onkeydown="createTabOnEnter(event, this)"
@@ -21,10 +21,10 @@
         </div>
     </div>
 
-    <div id="info-modal" class="box box-modal-background box-arrange-hor">
-        <div class="box box-items-center box-modal-window background-25 pad-hor pad-vert">
+    <div id="info-modal" class="box box-modal-background box-arrange-hor" onclick="closeAllModals()">
+        <div class="box box-items-center box-modal-window background-25 pad-hor pad-vert" onclick="event.stopPropagation()">
             <img src="icons/cloud-compile.png" class="" width="128px" alt="">
-            <span class="foreground-cc font-small pad-vert" style="font-size: x-large;">Shnootalk Playground</span>
+            <span class="foreground-cc font-small pad-vert" style="font-size: x-large;">ShnooTalk Playground</span>
             <div class="box font-small box-items-center pad-hor">
                 <a href="https://github.com/RainingComputers/ShnooTalk" class="foreground-cc text-no-wrap"
                     target="_blank">github.com/RainingComputers/ShnooTalk</a>
