@@ -1,6 +1,6 @@
 APP_NAME = shnootalk_cc_job
 DOCKER_BASE_NAME = shnootalk-cloud-compile-job
-DOCKER_TAG_VERSION = 0.2.3
+DOCKER_TAG_VERSION = 0.2.4
 
 .PHONY: help push clean test lint  typechk push
 
