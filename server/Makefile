@@ -1,4 +1,6 @@
 APP_NAME = shnootalk_cc_server
+DOCKER_BASE_NAME = shnootalk-cloud-compile-server
+DOCKER_TAG_VERSION = 0.2.15
 
 .PHONY: help push clean test lint  typechk push
 
@@ -34,8 +36,12 @@ typechk:
 	mypy --package $(APP_NAME) --package tests --namespace-packages --install-types
 
 push:
-	docker build --no-cache . -t shnoo28/shnootalk-cloud-compile-server:0.2.15
-	docker push shnoo28/shnootalk-cloud-compile-server:0.2.15
+	docker build --no-cache . -t shnoo28/$(DOCKER_BASE_NAME):$(DOCKER_TAG_VERSION).$(shell uname -m)
+	docker push shnoo28/$(DOCKER_BASE_NAME):$(DOCKER_TAG_VERSION).$(shell uname -m)
+
+push-default-arch:
+	docker tag shnoo28/$(DOCKER_BASE_NAME):$(DOCKER_TAG_VERSION).$(shell uname -m) shnoo28/$(DOCKER_BASE_NAME):$(DOCKER_TAG_VERSION)
+	docker push shnoo28/$(DOCKER_BASE_NAME):$(DOCKER_TAG_VERSION)
 
 rundev:
 	python3 -m shnootalk_cc_server

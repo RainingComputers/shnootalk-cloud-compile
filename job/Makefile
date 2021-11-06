@@ -1,4 +1,6 @@
 APP_NAME = shnootalk_cc_job
+DOCKER_BASE_NAME = shnootalk-cloud-compile-job
+DOCKER_TAG_VERSION = 0.2.3
 
 .PHONY: help push clean test lint  typechk push
 
@@ -34,5 +36,9 @@ typechk:
 	mypy --package $(APP_NAME) --namespace-packages --install-types
 
 push:
-	docker build --no-cache . -t shnoo28/shnootalk-cloud-compile-job:0.2.3
-	docker push shnoo28/shnootalk-cloud-compile-job:0.2.3
+	docker build --no-cache . -t shnoo28/$(DOCKER_BASE_NAME):$(DOCKER_TAG_VERSION).$(shell uname -m)
+	docker push shnoo28/$(DOCKER_BASE_NAME):$(DOCKER_TAG_VERSION).$(shell uname -m)
+
+push-default-arch:
+	docker tag shnoo28/$(DOCKER_BASE_NAME):$(DOCKER_TAG_VERSION).$(shell uname -m) shnoo28/$(DOCKER_BASE_NAME):$(DOCKER_TAG_VERSION)
+	docker push shnoo28/$(DOCKER_BASE_NAME):$(DOCKER_TAG_VERSION)
