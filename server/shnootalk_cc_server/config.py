@@ -1,4 +1,5 @@
 import os
+import sys
 from kubernetes.config import load_kube_config, load_incluster_config
 from pymongo import MongoClient
 
@@ -19,9 +20,12 @@ JOB_TIMEOUT = os.getenv('JOB_TIMEOUT', '8')
 HEARTBEAT_JOB_ENABLE = os.getenv('HEARTBEAT_JOB_ENABLE', 'false')
 HEARTBEAT_JOB_INTERVAL = int(os.getenv('HEARTBEAT_JOB_INTERVAL', '180'))
 
+JOB_IMAGE = os.getenv('JOB_IMAGE', 'docker.io/shnoo28/shnootalk-cloud-compile-job:0.2.3')
+
 mongo_collection = MongoClient(MONGO_URL)[MONGO_DATABASE][MONGO_COLLECTION]
 
-if USE_INCLUSTER_CONFIG == 'true':
-    load_incluster_config()
-else:
-    load_kube_config(context=KUBE_CONTEXT)
+if "pytest" not in sys.argv[0]:
+    if USE_INCLUSTER_CONFIG == 'true':
+        load_incluster_config()
+    else:
+        load_kube_config(context=KUBE_CONTEXT)

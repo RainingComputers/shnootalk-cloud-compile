@@ -4,7 +4,7 @@ import yaml
 
 from shnootalk_cc_server.config import MONGO_URL_SECRET_NAME, MONGO_URL_SECRET_KEY
 from shnootalk_cc_server.config import MONGO_DATABASE, MONGO_COLLECTION
-from shnootalk_cc_server.config import JOB_TIMEOUT
+from shnootalk_cc_server.config import JOB_TIMEOUT, JOB_IMAGE
 
 CONFIG_MAP = 0
 JOB = 1
@@ -27,6 +27,8 @@ def fill_template(program_id: str, programs: Dict[str, str],
     job_template[JOB]['metadata']['name'] = job_name
 
     job_template_spec = job_template[JOB]['spec']['template']['spec']
+
+    job_template_spec['containers'][0]['image'] = JOB_IMAGE
 
     job_template_env = job_template_spec['containers'][0]['env']
 

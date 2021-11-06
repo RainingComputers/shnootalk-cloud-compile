@@ -94,6 +94,7 @@ watch 'curl -s --request GET http://127.0.0.1:5000/shnootalk/compile/api/v1/stat
 | JOB_TIMEOUT            | Sets TIMEOUT env variable on the Job
 | HEARTBEAT_JOB_ENABLE   | Spawns a compile job every HEARTBEAT_JOB_INTERVAL seconds to keep GKE autopilot on its toes, so jobs doesn't stay pending for too long. Set to either `"true"` or `"false"`.
 | HEARTBEAT_JOB_INTERVAL | Time between heartbeat jobs in seconds
+| JOB_IMAGE              | Docker image for the job, default is `docker.io/shnoo28/shnootalk-cloud-compile-job:0.2.3`
 
 ### Job env variables (controlled by server)
 

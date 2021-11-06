@@ -1,6 +1,6 @@
 APP_NAME = shnootalk_cc_server
 DOCKER_BASE_NAME = shnootalk-cloud-compile-server
-DOCKER_TAG_VERSION = 0.2.15
+DOCKER_TAG_VERSION = 0.2.16
 
 .PHONY: help push clean test lint  typechk push
 
@@ -27,7 +27,7 @@ clean:
 	rm -f -r dist/
 
 test:
-	pytest tests -vv
+	pytest tests -vv --full-trace
 
 lint:
 	pylint $(APP_NAME) tests --rcfile ./.pylintrc

@@ -14,7 +14,7 @@ spec:
       ttlSecondsAfterFinished: 10
       containers:
       - name: compile-exec-job
-        image: docker.io/shnoo28/shnootalk-cloud-compile-job:0.2.3
+        image: <filled-by-server>
         command: ["python3",  "shnootalk_cc_job", "/configmap/", "/progdir/", "<filled-by-server>"]
         env:
         - name: MONGO_URL
