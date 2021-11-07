@@ -1,4 +1,4 @@
-const SERVER_URL = "http://34.96.95.247:80/shnootalk/compile/api/v1/"
+const SERVER_URL = "https://shnootalk-cloud-compile.loophole.site/shnootalk/compile/api/v1/"
 const DISPATCH_ENDPOINT = SERVER_URL + "dispatch"
 const POLL_FREQUENCY = 250
 const MESSAGE_500 = "Something went wrong, please try again later"
