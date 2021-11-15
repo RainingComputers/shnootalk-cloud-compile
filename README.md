@@ -11,7 +11,7 @@ and query status of execution. The job does the actual compilation and execution
 
 Both the server and the job use MongoDB to keep track of the execution status.
 
-To deploy Cloud Compile on a kubernetes cluster, follow [these instructions](https://github.com/RainingComputers/shnootalk-cloud-compile-deploy)
+To deploy Cloud Compile on a kubernetes cluster, follow [these instructions](https://github.com/RainingComputers/shnootalk-cloud-compile-deploy) or follow [k3s raspberry pi instructions](https://github.com/RainingComputers/shnootalk-cloud-compile-deploy-pi)
 
 ## Architecture
 
