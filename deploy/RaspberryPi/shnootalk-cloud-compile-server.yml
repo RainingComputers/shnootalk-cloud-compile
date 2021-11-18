@@ -1,0 +1,99 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: job-creator-sa
+  namespace: default
+automountServiceAccountToken: true
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: compile
+  name: job-creator-role
+rules:
+- apiGroups: ["*"]
+  resources: ["jobs", "configmaps"]
+  verbs: ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: job-creator-bind
+  namespace: compile
+subjects:
+  - kind: ServiceAccount
+    name: job-creator-sa
+    namespace: default
+roleRef:
+  kind: Role
+  name: job-creator-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shnootalk-cloud-compile-server
+  labels:
+    app: shnootalk-cloud-compile-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shnootalk-cloud-compile-server
+  template:
+    metadata:
+      labels:
+        app: shnootalk-cloud-compile-server
+    spec:
+      serviceAccountName: job-creator-sa
+      containers:
+        - name: shnootalk-cloud-compile-server
+          image: docker.io/shnoo28/shnootalk-cloud-compile-server:0.2.16.armv7l
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:  
+              memory: 128Mi
+              cpu: 250m
+            limits:
+              memory: 256Mi
+              cpu: 500m
+          env:
+            - name: MONGO_URL
+              valueFrom:
+                secretKeyRef:
+                  name: shnootalk-cloud-compile-mongodb-url
+                  key: connectionString
+            - name: USE_INCLUSTER_CONFIG
+              value: "true"
+            - name: HEARTBEAT_JOB_ENABLE
+              value: "true"
+            - name: HEARTBEAT_JOB_INTERVAL
+              value: "180"
+            - name: JOB_IMAGE
+              value: "docker.io/shnoo28/shnootalk-cloud-compile-job:0.2.4.armv7l"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shnootalk-cloud-compile-service
+spec:
+  selector:
+    app: shnootalk-cloud-compile-server
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shnootalk-cloud-compile-ingress
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  defaultBackend:
+    service:
+      name: shnootalk-cloud-compile-service
+      port:
+        number: 8000

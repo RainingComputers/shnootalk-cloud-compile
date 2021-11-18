@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: job-cleanup-cron-sa
+  namespace: compile
+automountServiceAccountToken: true
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: compile
+  name: job-cleanup-cron-role
+rules:
+- apiGroups: ["*"]
+  resources: ["jobs"]
+  verbs: ["list", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: job-cleanup-cron-role-binding
+  namespace: compile
+subjects:
+  - kind: ServiceAccount
+    name: job-cleanup-cron-sa
+    namespace: compile
+roleRef:
+  kind: Role
+  name: job-cleanup-cron-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: shnootalk-cloud-compile-job-cleanup-cron
+spec:
+  schedule: "*/10 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: job-cleanup-cron-sa
+          containers:
+          - name: kubectl-container
+            image: shnoo28/kubectl-alpine:0.0.1.armv7l
+            command: ["sh", "-c", "kubectl delete jobs --field-selector status.successful=1"]
+          restartPolicy: Never

@@ -3,7 +3,7 @@
 # ShnooTalk Cloud Compile
 
 Backend and infrastructure to compile and execute [ShnooTalk](https://github.com/RainingComputers/ShnooTalk) programs on the cloud.
-Primary use case is for users to try the language in the browser.
+Primary use case is for users to try the language in the browser. (See [ShnooTalk Playground](https://github.com/RainingComputers/shnootalk-playground/))
 
 The project is made up of two sub-projects, the job and the server. The server
 has endpoints to dispatch programs (start compile and run jobs on a kubernetes cluster)
@@ -11,7 +11,7 @@ and query status of execution. The job does the actual compilation and execution
 
 Both the server and the job use MongoDB to keep track of the execution status.
 
-To deploy Cloud Compile on a kubernetes cluster, follow [these instructions](https://github.com/RainingComputers/shnootalk-cloud-compile-deploy) or follow [k3s raspberry pi instructions](https://github.com/RainingComputers/shnootalk-cloud-compile-deploy-pi)
+To deploy Cloud Compile on a kubernetes cluster, follow [these instructions](deploy/x86_64) or follow [k3s raspberry pi instructions](deploy/RaspberryPi)
 
 ## Architecture
 

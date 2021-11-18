@@ -1,0 +1,20 @@
+apiVersion: mongodbcommunity.mongodb.com/v1
+kind: MongoDBCommunity
+metadata:
+  name: shnootalk-cloud-compile-mongodb
+spec:
+  members: 3
+  type: ReplicaSet
+  version: "4.4.0"
+  security:
+    authentication:
+      modes: ["SCRAM"]
+  users:
+    - name: shtkcc-user
+      db: admin
+      passwordSecretRef: 
+        name: shnootalk-cloud-compile-mongodb-password
+      roles:
+        - name: readWrite
+          db: shnootalk-cloud-compile
+      scramCredentialsSecretName: shnootalk-cloud-compile-mongodb

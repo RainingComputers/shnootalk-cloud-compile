@@ -1,0 +1,16 @@
+[Unit]
+Description=Start loophole tunnel service to expose http traffic on port 8081
+After=network-online.target
+Requires=network-online.target
+
+[Service]
+Type=simple
+ExecStart=loophole http 8081 --hostname shnootalk-cloud-compile
+Restart=on-failure
+RestartSec=120
+User=pi
+
+
+[Install]
+WantedBy=multi-user.target
+
