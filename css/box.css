@@ -147,7 +147,7 @@ textarea:focus {
   flex-grow: 1;
 }
 
-.box-float-right {
+.box-child-float-right {
   margin-left: auto;
 }
 
@@ -261,6 +261,14 @@ textarea:focus {
   border-left: solid 1px #373737;
 }
 
+.border-right-37 {
+    border-right: solid 1px #373737;
+}
+  
+.border-bottom-37 {
+  border-bottom: solid 1px #373737;
+}
+
 /* Backgrounds */
 .background-1e,
 .hover-background-1e:hover:not(.active),
@@ -292,11 +300,13 @@ textarea:focus {
   background: #3c3c3c;
 }
 
+/* TODO: Add all red, green, blue, yellow variants of normal, hover, disabled for more generic CSS */
+
 .background-green {
   background: #059862;
 }
 
-.background-green[disabled] {
+.disabled-background-yellow[disabled] {
   background: #a08000f9 !important;
 }
 
@@ -304,7 +314,7 @@ textarea:focus {
   background: #04aa6d;
 }
 
-.hover-background-darken:hover {
+.hover-background-darken:hover:not(.active) {
   background: rgba(0, 0, 0, 0.2);
 }
 
@@ -327,6 +337,8 @@ textarea:focus {
 .foreground-white {
   color: #ffffff;
 }
+
+/* TODO: Add all red, green, blue, yellow for more generic CSS */
 
 .foreground-green {
   color: green;

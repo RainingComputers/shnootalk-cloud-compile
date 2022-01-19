@@ -22,7 +22,8 @@
     </div>
 
     <div id="info-modal" class="box box-modal-background box-arrange-hor" onclick="closeAllModals()">
-        <div class="box box-items-center box-modal-window background-25 pad-hor pad-vert" onclick="event.stopPropagation()">
+        <div class="box box-items-center box-modal-window background-25 pad-hor pad-vert"
+            onclick="event.stopPropagation()">
             <img src="icons/cloud-compile.png" class="" width="128px" alt="">
             <span class="foreground-cc font-small pad-vert" style="font-size: x-large;">ShnooTalk Playground</span>
             <div class="box font-small box-items-center pad-hor">
@@ -50,7 +51,7 @@
                 <button id="tab-main.shtk"
                     class="box box-arrange-hor box-items-center box-button box-button-tab box-height-full pad-hor pad-vert box-min-width-120 active-background-1e hover-background-33 background-2d foreground-f80 active-foreground-cc tab-links active"
                     onclick="openTab('main.shtk')">
-                    <img src="icons/code.svg" class="box-float-right" width="15px" alt="">
+                    <img src="icons/code.svg" class="box-child-float-right" width="15px" alt="">
                     <span class="pad-left-small">main.shtk</span>
                 </button>
             </div>
@@ -61,7 +62,7 @@
                     width="15px" alt="">
             </button>
 
-            <div class="box box-arrange-hor box-items-center pad-hor pad-vert background-25 box-float-right foreground-cc cursor-pointer hover-background-darken"
+            <div class="box box-arrange-hor box-items-center pad-hor pad-vert background-25 box-child-float-right foreground-cc cursor-pointer hover-background-darken"
                 onclick="showInfoModal()">
                 <img src="icons/logo.svg" class="" width="50px" alt="">
                 <span class="box">
@@ -71,7 +72,7 @@
             </div>
 
             <button id="run-button"
-                class="box box-button box-arrange-hor box-items-center box-height-full pad-vert pad-hor background-green hover-background-green"
+                class="box box-button box-arrange-hor box-items-center box-height-full pad-vert pad-hor background-green hover-background-green disabled-background-yellow"
                 onclick="run(getPrograms())">
                 <img src="icons/play.svg" width="15px" alt="">
                 <span class="pad-left-small foreground-white">Run</span>
@@ -124,9 +125,9 @@
     <template id="new-tab-button-template">
         <button id="tab-button"
             class="box box-arrange-hor box-items-center box-button box-button-tab box-height-full pad-hor pad-vert box-min-width-120 active-background-1e hover-background-33 background-2d foreground-f80 active-foreground-cc tab-links active">
-            <img src="icons/code.svg" class="box-float-right" width="15px" alt="">
+            <img src="icons/code.svg" class="box-child-float-right" width="15px" alt="">
             <span id="tab-name" class="pad-left-small">main.shtk</span>
-            <span class="box-float-right pad-left"></span>
+            <span class="box-child-float-right pad-left"></span>
             <img id="tab-close-button" src="icons/x.svg" class="box-rounded hover-background-darken" width="15px"
                 alt="">
         </button>
