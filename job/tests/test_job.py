@@ -63,12 +63,10 @@ def test_main(mongo_connection: Tuple[Collection, str],
 
     main(fixture_dir, empty_dir, ObjectId(mongo_id))
 
-    expected_doc = {
-        '_id': ObjectId(mongo_id),
-        'status': expected_status,
-        'output': expected_output
-    }
-
     docs = list(collection.find({}))
+
     assert len(docs) == 1
-    assert docs[0] == expected_doc
+    assert docs[0]['_id'] == ObjectId(mongo_id)
+    assert docs[0]['status'] == expected_status
+    if 'link_fail' not in fixture_dir:
+        assert docs[0]['output'] == expected_output
