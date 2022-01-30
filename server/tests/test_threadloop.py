@@ -3,7 +3,7 @@ import time
 from shnootalk_cc_server.threadloop import ThreadLoop
 
 
-class CallIntervalAssertMock:
+class CallIntervalAssertSpy:
     def __init__(self) -> None:
         self._call_count = 0
         self._last_time = 0.0
@@ -29,7 +29,7 @@ class CallIntervalAssertMock:
 
 
 def test_threadloop() -> None:
-    callback = CallIntervalAssertMock()
+    callback = CallIntervalAssertSpy()
     threadloop = ThreadLoop(1, callback)
     threadloop.start()
     time.sleep(2)

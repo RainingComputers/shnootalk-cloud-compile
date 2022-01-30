@@ -9,6 +9,7 @@ PyYAML = "*"
 kubernetes = "*"
 Flask-Cors = "*"
 gunicorn = "*"
+types-pyyaml = "*"
 
 [dev-packages]
 pylint = "*"
