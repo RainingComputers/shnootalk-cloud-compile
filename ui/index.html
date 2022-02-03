@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="js/forcehttp.js" type="text/javascript" charset="utf-8"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/box.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/scroll.css">
+    <title>ShnooTalk</title>
+</head>
+
+<body class="box-root">
+    <div id="ask-tab-name-modal" class="box box-modal-background box-arrange-hor" onclick="closeAllModals()">
+        <div class="box box-modal-window background-25 pad-hor box-width-quarter" onclick="event.stopPropagation()">
+            <span class="foreground-cc font-small pad-vert-small">Enter name</span>
+            <span class="pad-bottom-small">
+                <input id="ask-tab-name-textbox" type="text" onkeydown="createTabOnEnter(event, this)"
+                    class="background-1e box-width-full foreground-cc">
+            </span>
+        </div>
+    </div>
+
+    <div id="info-modal" class="box box-modal-background box-arrange-hor" onclick="closeAllModals()">
+        <div class="box box-items-center box-modal-window background-25 pad-hor pad-vert"
+            onclick="event.stopPropagation()">
+            <img src="icons/cloud-compile.png" class="" width="128px" alt="">
+            <span class="foreground-cc font-small pad-vert" style="font-size: x-large;">ShnooTalk Playground</span>
+            <div class="box font-small box-items-center pad-hor">
+                <a href="https://github.com/RainingComputers/ShnooTalk" class="foreground-cc text-no-wrap"
+                    target="_blank">github.com/RainingComputers/ShnooTalk</a>
+
+                <a href="https://github.com/RainingComputers/shnootalk-cloud-compile" class="foreground-cc text-no-wrap"
+                    target="_blank">github.com/RainingComputers/shnootalk-cloud-compile</a>
+
+                <a href="https://github.com/RainingComputers/shnootalk-playground" class="foreground-cc text-no-wrap"
+                    target="_blank">github.com/RainingComputers/shnootalk-playground</a>
+
+                <span class="foreground-f80 text-no-wrap foreground-f80 pad-vert" style="font-size: xx-small;">
+                    © Copyrights 2021 RainingComputers
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="box box-width-full box-child-grow">
+
+        <div class="box box-arrange-hor box-width-full background-25 box-items-center">
+            <div class="box box-arrange-hor box-arrange-gap box-height-full scroll-x scroll-hidden hor-scroll"
+                style="height: 46px;" id="tab-header">
+                <button id="tab-main.shtk"
+                    class="box box-arrange-hor box-items-center box-button box-button-tab box-height-full pad-hor pad-vert box-min-width-120 active-background-1e hover-background-33 background-2d foreground-f80 active-foreground-cc tab-links active"
+                    onclick="openTab('main.shtk')">
+                    <img src="icons/code.svg" class="box-child-float-right" width="15px" alt="">
+                    <span class="pad-left-small">main.shtk</span>
+                </button>
+            </div>
+
+            <button class="box-button background-25 box-items-center box-height-full"
+                onclick="askNameAndCreateNewTab()">
+                <img src="icons/plus.svg" class="box-rounded hover-background-darken pad-vert-small pad-hor-small"
+                    width="15px" alt="">
+            </button>
+
+            <div class="box box-arrange-hor box-items-center pad-hor pad-vert background-25 box-child-float-right foreground-cc cursor-pointer hover-background-darken"
+                onclick="showInfoModal()">
+                <img src="icons/logo.svg" class="" width="50px" alt="">
+                <span class="box">
+                    <span class="pad-left-small text-no-wrap font-small">ShnooTalk Playground</span>
+                </span>
+
+            </div>
+
+            <button id="run-button"
+                class="box box-button box-arrange-hor box-items-center box-height-full pad-vert pad-hor background-green hover-background-green disabled-background-yellow"
+                onclick="run(getPrograms())">
+                <img src="icons/play.svg" width="15px" alt="">
+                <span class="pad-left-small foreground-white">Run</span>
+            </button>
+
+        </div>
+
+
+        <div class="box box-width-full box-child-grow box-arrange-hor">
+            <div id="content-div" class="box box-child-grow">
+                <div id="tab-content-main.shtk" class="box box-child-grow tab-content"></div>
+            </div>
+
+            <div class="box box-width-35 background-2d box-height-full">
+
+                <div class="box box-arrange-hor">
+                    <img src="icons/terminal.svg" class="pad-left" width="16px" alt="">
+                    <span class="pad-hor pad-vert box-child-grow foreground-cc font-small">OUTPUT</span>
+                    <span id="exec-ok" class="pad-hor pad-vert foreground-green font-small text-bold"
+                        style="display: none;">OK</span>
+                    <span id="exec-error" class="pad-hor pad-vert foreground-red font-small text-bold"
+                        style="display: none;">ERROR</span>
+                </div>
+                <div id="stdout-panel" class="box box-child-grow">
+                    <pre class="box box-child-grow pad-hor scroll-x scroll-hidden hor-scroll">
+                        <code id="stdout-panel-output" class="box box-child-grow foreground-cc"></code>
+                    </pre>
+                </div>
+                <div id="loading-panel" class="box box-child-grow box-items-center box-display-none">
+                    <div class="pad-vert">
+                        <div class="loader loader-background-2d loader-foreground-f80"
+                            style="width: 50px; height: 50px;"></div>
+                    </div>
+                    <span id="loading-panel-status" class="pad-vert foreground-f80 font-small">Dispatched</span>
+                </div>
+                <div class="box box-arrange-hor border-top-37">
+                    <img src="icons/terminal.svg" class="pad-left" width="16px" alt="">
+                    <span class="pad-hor pad-vert box-width-full foreground-cc font-small ">INPUT</span>
+                </div>
+                <div class="box box-height-quarter pad-hor pad-bottom">
+                    <textarea id="input-textarea"
+                        class="box-width-full box-height-full background-2d foreground-cc placeholder-foreground-f80"
+                        placeholder="Enter input here"></textarea>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <template id="new-tab-button-template">
+        <button id="tab-button"
+            class="box box-arrange-hor box-items-center box-button box-button-tab box-height-full pad-hor pad-vert box-min-width-120 active-background-1e hover-background-33 background-2d foreground-f80 active-foreground-cc tab-links active">
+            <img src="icons/code.svg" class="box-child-float-right" width="15px" alt="">
+            <span id="tab-name" class="pad-left-small">main.shtk</span>
+            <span class="box-child-float-right pad-left"></span>
+            <img id="tab-close-button" src="icons/x.svg" class="box-rounded hover-background-darken" width="15px"
+                alt="">
+        </button>
+    </template>
+
+    <template id="new-editor-template">
+        <div id="editor-div" class="box box-child-grow tab-content"></div>
+    </template>
+
+    <script src="ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/editor.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/compile.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/run.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/horscroll.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
+
+</html>

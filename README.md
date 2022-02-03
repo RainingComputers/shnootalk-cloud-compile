@@ -105,3 +105,16 @@ watch 'curl -s --request GET http://127.0.0.1:5000/shnootalk/compile/api/v1/stat
 | MONGO_DATABASE    | Name of the database to use
 | MONGO_COLLECTION  | Name of the collection to use
 | HEARTBEAT         | Will not write to MongoDB if set to `'true'`
+
+![](icons/cloud-compile.png)
+
+## ShnooTalk Playground UI
+
+Run and try the [ShnooTalk](https://github.com/RainingComputers/ShnooTalk) language from your browser!
+
+Web code editor for ShnooTalk Cloud Compile based on [shnootalk-ace](https://github.com/RainingComputers/shnootalk-ace/pulse)
+(extended [ace](https://github.com/ajaxorg/ace) text editor with ShnooTalk syntax support).
+
+**Configuration**
+
+Change `SERVER_URL` in `compile.js` to point to cloud compile.
