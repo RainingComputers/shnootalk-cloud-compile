@@ -106,8 +106,6 @@ watch 'curl -s --request GET http://127.0.0.1:5000/shnootalk/compile/api/v1/stat
 | MONGO_COLLECTION  | Name of the collection to use
 | HEARTBEAT         | Will not write to MongoDB if set to `'true'`
 
-![](icons/cloud-compile.png)
-
 ## ShnooTalk Playground UI
 
 Run and try the [ShnooTalk](https://github.com/RainingComputers/ShnooTalk) language from your browser!
