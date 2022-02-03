@@ -2,6 +2,8 @@
 
 # ShnooTalk Cloud Compile
 
+NOTE: This project is now deprecated, see the [newer version](https://github.com/RainingComputers/shnootalk-playground) re-written in Svelte and FastAPI, and much simpler and does not use a database.
+
 Backend and infrastructure to compile and execute [ShnooTalk](https://github.com/RainingComputers/ShnooTalk) programs on the cloud.
 Primary use case is for users to try the language in the browser. (See [ShnooTalk Playground](https://github.com/RainingComputers/shnootalk-playground/))
 
